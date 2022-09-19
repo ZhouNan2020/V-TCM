@@ -1,4 +1,4 @@
-#%%
+# %%
 import numpy as np
 import pandas as pd
 from io import BytesIO
@@ -17,7 +17,7 @@ import gensim
 from PIL import Image
 import streamlit as st
 import altair as alt
-#%%
+# %%
 # Path: V-TCM\streamlit_app.py
 # 全局设置
 # streamlit
@@ -35,21 +35,10 @@ parameters = {'xtick.labelsize': 20,
 plt.rcParams.update(parameters)
 fontsize = 30
 
-#%%
-# 定义文件转换函数
-class conver:
-    "Convert xlsx files"
-    def __int__(self, file):
-        self.file = file
-    def to_xlsx(self):
-        buffer = BytesIO()
-        xls= self.file
-        with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-            self.file.to_excel(writer, sheet_name='Sheet1')
-            writer.save()
-            processed_data = buffer.getvalue()
-        return processed_data
-#%%
+# %%
+from library import conver
+
+# %%
 # 读取示例数据
 out1 = conver()
 out2 = conver()
@@ -57,10 +46,6 @@ out1.file = pd.read_excel('English example.xlsx')
 out2.file = pd.read_excel('中文示例.xlsx')
 eng_exmp = out1.to_xlsx()
 chn_exmp = out2.to_xlsx()
-
-
-
-#%%
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
