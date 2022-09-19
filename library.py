@@ -32,9 +32,9 @@ class conver:
         return processed_data
 
 #%%
-# 读取上传数据
-class read_file:
-    def __init__(self, file):
-        self.file = file
-    def read(self):
-
+## 读取上传数据
+#class read_file:
+#    def __init__(self, file):
+#        self.file = file
+#    def read(self):
+#
