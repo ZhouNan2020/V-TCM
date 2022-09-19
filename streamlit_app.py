@@ -102,8 +102,8 @@ with tab1:
             y = list(y)
             y.reverse()  # 倒序
             ax1.barh(x, y, align='center', color='c', tick_label=list(x))
-            plt.ylabel('herbs', fontsize=fontsize, fontproperties=font)
-            plt.yticks(x, fontproperties=font)
+            plt.ylabel('herbs', fontsize=fontsize)
+            plt.yticks(x)
             st.pyplot(fig1)
 #%%
 herb_dense_data_frame = count_dict.dense_frame(file_dict)
