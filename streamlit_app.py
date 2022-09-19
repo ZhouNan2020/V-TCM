@@ -34,6 +34,7 @@ parameters = {'xtick.labelsize': 20,
               'axes.unicode_minus':False}
 plt.rcParams.update(parameters)
 fontsize = 20
+plt.style.use('ggplot')
 
 # %%
 from library import conver, read_file, format, count_list,count_dict,tf_idf
