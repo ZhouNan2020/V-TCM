@@ -45,7 +45,7 @@ class conver:
         buffer = BytesIO()
         xls= self.file
         with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-            xls.to_excel(writer, sheet_name='Sheet1')
+            self.file.to_excel(writer, sheet_name='Sheet1')
             writer.save()
             processed_data = buffer.getvalue()
         return processed_data
