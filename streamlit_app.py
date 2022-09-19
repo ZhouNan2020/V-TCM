@@ -130,7 +130,7 @@ tf_idf_dict = count_dict.tf_idf_dict(file_dict,list_vect=list_vect, lexicon=lexi
 tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
 
-with tab2:
+#with tab2:
 
 
 
