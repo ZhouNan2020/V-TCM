@@ -28,12 +28,13 @@ tab1, tab2, tab3, tab4, tab5, tab6,tab7,tab8 = st.tabs(
 
 # matplotlib
 font = font_manager.FontProperties(fname='simhei.ttf')
+
 parameters = {'xtick.labelsize': 20,
               'ytick.labelsize': 20,
               'font.family':'SimHei',
               'axes.unicode_minus':False}
 plt.rcParams.update(parameters)
-fontsize = 20
+fontsize = 17
 plt.style.use('ggplot')
 
 # %%
