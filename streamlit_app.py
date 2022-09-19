@@ -42,10 +42,10 @@ from library import conver
 # 读取示例数据
 #out1 = conver()
 #out2 = conver()
-#out1.file = pd.read_excel('English example.xlsx')
-#out2.file = pd.read_excel('中文示例.xlsx')
-eng_exmp = conver.to_xlsx()
-chn_exmp = conver.to_xlsx()
+out1 = pd.read_excel('English example.xlsx')
+out2 = pd.read_excel('中文示例.xlsx')
+eng_exmp = conver.to_xlsx(out1)
+chn_exmp = conver.to_xlsx(out2)
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
