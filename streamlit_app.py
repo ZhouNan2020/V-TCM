@@ -36,7 +36,7 @@ plt.rcParams.update(parameters)
 fontsize = 30
 
 # %%
-from library import conver, read_file, count_herb
+from library import conver, read_file, format, count_h
 
 # %%
 # 读取示例数据
@@ -69,7 +69,13 @@ def file_pre(f):
 txt=file_pre(file)
 # %%
 st.write('You can use the cursor keys "←" and "→" to see more tags')
-c_herb=txt.count_herb()
+herb_list = format.herb_list(txt)
+file_dict = format.file_dict(txt)
+
+herb_list = count_h.herb_list()
+file_dict = count_h.file_dict()
+
+
 with tab1:
     st.write('1.The total number of different herbs: ', c_herb.total_herb_list())
     st.write('2.The total number of herbs is:', c_herb.total_herb_word_list())

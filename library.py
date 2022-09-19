@@ -40,25 +40,31 @@ class read_file:
        return txt
 
 ## 计数对象
-class count_herb:
+class format:
     len_herb_list = 0
-    def __int__(self,herb_lis,file_dic):
+    def herb_list(self):
         sentence = ""
         for index, row in self.iterrows():
             for sen in row:
                 sentence = sentence + sen + ','
-        herb_lis = sentence.split(sep=',')
-        self.herb_list = herb_lis
-        file_dic = dict()
+        herb_list = sentence.split(sep=',')
+        return herb_list
+    def file_dict(self):
+        file_dict = dict()
         for index, row in self.iterrows():
             for sen in row:
                 per_vect = []
                 ws = sen.split(sep=',')
                 for herb in ws:
                     per_vect.append(herb)
-                file_dic[index] = per_vect
-        self.file_dict = file_dic
+                file_dict[index] = per_vect
+        return file_dict
 
+
+class count_h:
+    def __int__(self,file_dict, herb_list):
+        self.file_dict = file_dict
+        self.herb_list = herb_list
     def count_herb(self):
         total_len = len(self.file_dict.keys())
         return total_len
