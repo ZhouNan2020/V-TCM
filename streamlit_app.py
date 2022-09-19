@@ -36,7 +36,7 @@ plt.rcParams.update(parameters)
 fontsize = 30
 
 # %%
-from library import conver, read_file, format, count_h,count_f
+from library import conver, read_file, format, count_list,count_dict,tf_idf
 
 # %%
 # 读取示例数据
@@ -72,11 +72,15 @@ st.write('You can use the cursor keys "←" and "→" to see more tags')
 herb_list = format.herb_list(txt)
 file_dict = format.file_dict(txt)
 
-total_herb_list = count_h.total_herb_list(herb_list)
-total_herb_word_list = count_h.total_herb_word_list(herb_list)
-avg_len = count_f.avg_len(file_dict)
-count_herb = count_h.count_herb(file_dict)
+total_herb_list = count_list.total_herb_list(herb_list)
+total_herb_word_list = count_list.total_herb_word_list(herb_list)
+avg_len = count_dict.avg_len(file_dict)
+count_herb = count_list.count_herb(file_dict)
 
+Counter_every_herb = count_list.Counter_every_herb(herb_list)
+most_common_herb2 = Counter_every_herb.most_common()
+most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
+full_common_data = most_common_herb2.copy()
 
 with tab1:
     st.write('1.The total number of different herbs: ', total_herb_list)
@@ -86,9 +90,28 @@ with tab1:
     num1 = st.select_slider(
         'How many herbs do you need to display by frequency?',
         options=range(1, 50, 1), key=1)
-
     most_common_herb1 = (count_herb).most_common(num1)
     most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
+    if st.button('Launch', key=2):
+        st.write('The most common herb is: ')
+        st.table(most_common_herb1)
+        if most_common_herb1.empty == False:
+            fig1, ax1 = plt.subplots()
+            x = most_common_herb1['herb']
+            y = most_common_herb1['count']
+            y = list(y)
+            y.reverse()  # 倒序
+            ax1.barh(x, y, align='center', color='c', tick_label=list(x))
+            plt.ylabel('herbs', fontsize=13, fontproperties=font)
+            plt.yticks(x, fontproperties=font)
+            st.pyplot(fig1)
+#%%
+herb_dense_data_frame = count_dict.herb_dense_data_frame(file_dict)
+list_vect = format.list_vect(txt)
+lexicon = sorted(set(herb_list))
+tf_idf_dict = count_dict.tf_idf_dict(file_dict,list_vect=list_vect, lexicon=lexicon)
+tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
+
 
 
 
