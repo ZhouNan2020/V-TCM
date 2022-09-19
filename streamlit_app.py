@@ -33,7 +33,7 @@ parameters = {'xtick.labelsize': 20,
               'font.family':'SimHei',
               'axes.unicode_minus':False}
 plt.rcParams.update(parameters)
-fontsize = 30
+fontsize = 20
 
 # %%
 from library import conver, read_file, format, count_list,count_dict,tf_idf
