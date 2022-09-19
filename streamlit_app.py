@@ -77,7 +77,7 @@ total_herb_word_list = count_list.total_herb_word_list(herb_list)
 avg_len = count_dict.avg_len(file_dict)
 count_herb = count_list.count_herb(file_dict)
 
-Counter_every_herb = count_list.Counter_every_herb(herb_list)
+Counter_every_herb = count_list.count_herb(herb_list)
 most_common_herb2 = Counter_every_herb.most_common()
 most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
 full_common_data = most_common_herb2.copy()
