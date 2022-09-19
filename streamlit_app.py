@@ -42,10 +42,10 @@ from library import conver
 # 读取示例数据
 out1 = conver()
 out2 = conver()
-out1.file = pd.read_excel('English example.xlsx')
-out2.file = pd.read_excel('中文示例.xlsx')
-eng_exmp = out1.to_xlsx()
-chn_exmp = out2.to_xlsx()
+#out1.file = pd.read_excel('English example.xlsx')
+#out2.file = pd.read_excel('中文示例.xlsx')
+eng_exmp = out1.to_xlsx(out1)
+chn_exmp = out2.to_xlsx(out2)
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
@@ -58,6 +58,10 @@ with st.sidebar:
     st.write('Note: You can understand the workflow of this program by uploading sample data.')
     st.write(
         'Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
+#%%
+# 测试区
+# file=pd.read_csv("English example.csv")
+#%%
 
 
 

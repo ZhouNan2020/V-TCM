@@ -30,3 +30,11 @@ class conver:
             writer.save()
             processed_data = buffer.getvalue()
         return processed_data
+
+#%%
+# 读取上传数据
+class read_file:
+    def __init__(self, file):
+        self.file = file
+    def read(self):
+
