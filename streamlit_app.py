@@ -106,7 +106,7 @@ with tab1:
             plt.yticks(x, fontproperties=font)
             st.pyplot(fig1)
 #%%
-herb_dense_data_frame = count_dict.herb_dense_data_frame(file_dict)
+herb_dense_data_frame = count_dict.dense_frame(file_dict)
 list_vect = format.list_vect(txt)
 lexicon = sorted(set(herb_list))
 tf_idf_dict = count_dict.tf_idf_dict(file_dict,list_vect=list_vect, lexicon=lexicon)
