@@ -69,23 +69,25 @@ def file_pre(f):
 txt=file_pre(file)
 # %%
 st.write('You can use the cursor keys "←" and "→" to see more tags')
-herb_lis = format.herb_list(txt)
-file_dic = format.file_dict(txt)
+herb_list = format.herb_list(txt)
+file_dict = format.file_dict(txt)
 
-herb_list = count_h(herb_lis)
-file_dict = count_f(file_dic)
+total_herb_list = count_h.total_herb_list(herb_list)
+total_herb_word_list = count_h.total_herb_word_list(herb_list)
+avg_len = count_f.avg_len(file_dict)
+count_herb = count_h.count_herb(file_dict)
 
 
 with tab1:
-    st.write('1.The total number of different herbs: ', herb_list.total_herb_list())
-    st.write('2.The total number of herbs is:', herb_list.total_herb_word_list())
-    st.write('3.The average length of prescription: ', round(file_dict.avg_len(), 0))
+    st.write('1.The total number of different herbs: ', total_herb_list)
+    st.write('2.The total number of herbs is:', total_herb_word_list)
+    st.write('3.The average length of prescription: ', round(avg_len, 0))
     st.write('4.The most common herb')
     num1 = st.select_slider(
         'How many herbs do you need to display by frequency?',
         options=range(1, 50, 1), key=1)
 
-    most_common_herb1 = (file_dict.count_herb()).most_common(num1)
+    most_common_herb1 = (count_herb).most_common(num1)
     most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
 
 
