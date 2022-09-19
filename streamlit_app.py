@@ -51,14 +51,14 @@ class conver:
         return processed_data
 #%%
 # 读取示例数据
-out1 = pd.read_excel('English example.xlsx')
-out2 = pd.read_excel('中文示例.xlsx')
-out1 = out1.set_index('Prescription name')
-out2 = out2.set_index('方剂名称')
-out1 = conver(out1).to_xlsx()
-out2 = conver(out2).to_xlsx()
-english_example = pd.read_excel(out1)
-chinese_example = pd.read_excel(out2)
+out1 = conver()
+out2 = conver()
+out1.file = pd.read_excel('English example.xlsx')
+out2.file = pd.read_excel('中文示例.xlsx')
+eng_exmp = out1.to_xlsx()
+chn_exmp = out2.to_xlsx()
+
+
 
 #%%
 # %%
@@ -67,9 +67,9 @@ with st.sidebar:
     file = st.file_uploader("Click “Browse files” to upload files", type=["xlsx"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .xlsx file')
-    st.download_button('Download sample data in English', data=english_example, file_name='sample data in English.xlsx',
+    st.download_button('Download sample data in English', data=eng_exmp, file_name='sample data in English.xlsx',
                        )
-    st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.xlsx')
+    st.download_button('下载中文示例数据', data=chn_exmp, file_name='中文示例数据.xlsx')
     st.write('Note: You can understand the workflow of this program by uploading sample data.')
     st.write(
         'Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
