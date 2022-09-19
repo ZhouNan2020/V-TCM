@@ -21,8 +21,8 @@ import altair as alt
 # 文件格式转换
 class conver:
     "Convert xlsx files"
-    def __int__(self, file):
-        self.file = file
+    #def __int__(self, file):
+        #self.file = file
     def to_xlsx(self):
         buffer = BytesIO()
         with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
