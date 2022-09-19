@@ -26,7 +26,7 @@ class conver:
     def to_xlsx(self):
         buffer = BytesIO()
         with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-            self.file.to_excel(writer, sheet_name='Sheet1')
+            self.to_excel(writer, sheet_name='Sheet1')
             writer.save()
             processed_data = buffer.getvalue()
         return processed_data
