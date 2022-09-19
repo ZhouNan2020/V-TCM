@@ -25,7 +25,7 @@ tab1, tab2, tab3, tab4, tab5, tab6,tab7,tab8 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "herbal generality",
      "LSA topic distribution", "LDiA topic distribution","word embedding", "Download",
      "About the program"])
-st.set_page_config(layout="wide")
+
 # matplotlib
 font = font_manager.FontProperties(fname='simhei.ttf')
 parameters = {'xtick.labelsize': 20,
