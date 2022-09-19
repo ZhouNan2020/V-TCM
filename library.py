@@ -40,7 +40,7 @@ class read_file:
        return txt
 
 ## 计数对象
-class count:
+class count_herb:
     len_herb_list = 0
     def __int__(self,herb_lis,file_dic):
         sentence = ""

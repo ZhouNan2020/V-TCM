@@ -36,7 +36,7 @@ plt.rcParams.update(parameters)
 fontsize = 30
 
 # %%
-from library import conver, read_file, count
+from library import conver, read_file, count_herb
 
 # %%
 # 读取示例数据
@@ -70,15 +70,15 @@ txt=file_pre(file)
 # %%
 st.write('You can use the cursor keys "←" and "→" to see more tags')
 with tab1:
-    st.write('1.The total number of different herbs: ', count.total_herb_list(txt))
-    st.write('2.The total number of herbs is:', count.total_herb_word_list(txt))
-    st.write('3.The average length of prescription: ', round(count.avg_len(txt), 0))
+    st.write('1.The total number of different herbs: ', count_herb.total_herb_list(txt))
+    st.write('2.The total number of herbs is:', count_herb.total_herb_word_list(txt))
+    st.write('3.The average length of prescription: ', round(count_herb.avg_len(txt), 0))
     st.write('4.The most common herb')
     num1 = st.select_slider(
         'How many herbs do you need to display by frequency?',
         options=range(1, 50, 1), key=1)
 
-    most_common_herb1 = (count.count_herb(txt)).most_common(num1)
+    most_common_herb1 = (count_herb.count_herb(txt)).most_common(num1)
     most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
 
 
