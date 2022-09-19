@@ -43,7 +43,7 @@ class conver:
         self.file = file
     def to_xlsx(self):
         buffer = BytesIO()
-        xls= pd.ExcelFile(self.file)
+        xls= self.file
         with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
             xls.to_excel(writer, sheet_name='Sheet1')
             writer.save()
