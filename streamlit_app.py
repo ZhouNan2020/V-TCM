@@ -36,12 +36,10 @@ plt.rcParams.update(parameters)
 fontsize = 30
 
 # %%
-from library import conver
+from library import conver, read_file
 
 # %%
 # 读取示例数据
-#out1 = conver()
-#out2 = conver()
 out1 = pd.read_excel('English example.xlsx')
 out2 = pd.read_excel('中文示例.xlsx')
 eng_exmp = conver.to_xlsx(out1)
@@ -62,8 +60,7 @@ with st.sidebar:
 # 测试区
 # file=pd.read_csv("English example.csv")
 #%%
-
-
+txt = read_file.read(file)
 
 
 
