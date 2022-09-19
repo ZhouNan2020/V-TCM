@@ -36,7 +36,7 @@ plt.rcParams.update(parameters)
 fontsize = 30
 
 # %%
-from library import conver, read_file
+from library import conver, read_file, count
 
 # %%
 # 读取示例数据
@@ -57,10 +57,31 @@ with st.sidebar:
     st.write(
         'Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
 #%%
-# 测试区
+# 测试文件
 # file=pd.read_csv("English example.csv")
 #%%
-txt = read_file.read(file)
+def file_pre(f):
+    if file!=None:
+        txt = read_file.read(file)
+    else:
+        txt = pd.DataFrame(out1)
+    return txt
+txt=file_pre(file)
+# %%
+st.write('You can use the cursor keys "←" and "→" to see more tags')
+with tab1:
+    st.write('1.The total number of different herbs: ', count.total_herb_list(txt))
+    st.write('2.The total number of herbs is:', count.total_herb_word_list(txt))
+    st.write('3.The average length of prescription: ', round(count.avg_len(txt), 0))
+    st.write('4.The most common herb')
+    num1 = st.select_slider(
+        'How many herbs do you need to display by frequency?',
+        options=range(1, 50, 1), key=1)
+
+    most_common_herb1 = (count.count_herb(txt)).most_common(num1)
+    most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
+
+
 
 
 
