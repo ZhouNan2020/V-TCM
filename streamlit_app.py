@@ -27,7 +27,7 @@ tab1, tab2, tab3, tab4, tab5, tab6,tab7,tab8 = st.tabs(
      "About the program"])
 
 # matplotlib
-#font = font_manager.FontProperties(fname='simhei.ttf')
+font = font_manager.FontProperties(fname='simhei.ttf')
 parameters = {'xtick.labelsize': 20,
               'ytick.labelsize': 20,
               'font.family':'SimHei',
@@ -102,8 +102,8 @@ with tab1:
             y = list(y)
             y.reverse()  # 倒序
             ax1.barh(x, y, align='center', color='c', tick_label=list(x))
-            plt.ylabel('herbs', fontsize=fontsize)
-            plt.yticks(x)
+            plt.ylabel('herbs', fontsize=fontsize, fontproperties=font)
+            plt.yticks(x,fontsize=fontsize,fontproperties=font)
             st.pyplot(fig1)
 #%%
 herb_dense_data_frame = count_dict.dense_frame(file_dict)
