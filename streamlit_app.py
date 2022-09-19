@@ -90,7 +90,7 @@ with tab1:
     num1 = st.select_slider(
         'How many herbs do you need to display by frequency?',
         options=range(1, 50, 1), key=1)
-    most_common_herb1 = (count_herb).most_common(num1)
+    most_common_herb1 = Counter_every_herb.most_common(num1)
     most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
     if st.button('Launch', key=2):
         st.write('The most common herb is: ')
