@@ -67,7 +67,7 @@ class count_f:
         return total_len
     def avg_len(self):
         len_herb_list = 0
-        for index in self():
+        for index in self.keys():
             herb_list = self.get(index)
             herb_list = list(set(herb_list))
             len_list = len(herb_list)
