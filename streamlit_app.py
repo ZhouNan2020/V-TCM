@@ -69,11 +69,11 @@ def file_pre(f):
 txt=file_pre(file)
 # %%
 st.write('You can use the cursor keys "←" and "→" to see more tags')
-herb_list = format.herb_list(txt)
-file_dict = format.file_dict(txt)
+herb_lis = format.herb_list(txt)
+file_dic = format.file_dict(txt)
 
-herb_list = count_h(herb_list)
-file_dict = count_f(file_dict)
+herb_list = count_h(herb_lis)
+file_dict = count_f(file_dic)
 
 
 with tab1:

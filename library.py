@@ -62,30 +62,27 @@ class format:
 
 
 class count_f:
-    def __int__(self,file_dict):
-        self.file_dict = file_dict
     def count_herb(self):
-        total_len = len(self.file_dict.keys())
+        total_len = len(self.keys())
         return total_len
     def avg_len(self):
         len_herb_list = 0
-        for index in self.file_dict():
-            herb_list = self.file_dict.get(index)
+        for index in self():
+            herb_list = self.get(index)
             herb_list = list(set(herb_list))
             len_list = len(herb_list)
             len_herb_list = len_herb_list + len_list
-        avg_len = len_herb_list / (len(self.file_dict.keys()))
+        avg_len = len_herb_list / (len(self.keys()))
         return avg_len
 
 
 class count_h:
-    def __int__(self,herb_list):
-        self.herb_list = herb_list
     def count_herb(self):
-        Counter_every_herb = Counter(self.herb_list)
+        Counter_every_herb = Counter(self)
         return Counter_every_herb
     def total_herb_list(self):
-        total_herb_list = len(Counter(self.herb_list))
+        total_herb_list = len(Counter(self))
         return total_herb_list
     def total_herb_word_list(self):
-        total_herb_word_list = len(self.herb_list)
+        total_herb_word_list = len(self)
+        return total_herb_word_list
