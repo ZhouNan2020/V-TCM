@@ -236,7 +236,12 @@ with tab3:
             idf_y2 = list((tf_idf_sort['tf_idf_value'].tail(num7)))
             plt.barh(idf_x2, idf_y2)
             st.pyplot(plt)
-
+    if st.button('Download TF-IDF matrix',key=14):
+        tf_idf_matrix = conver(idf_df)
+        st.download_button(
+            label='Download tf_idf_matrix',
+            data=tf_idf_matrix.file,
+            file_name='tf_idf_matrix.xlsx')
 
 with tab4:
     st.subheader('Topic classification based on Latent Semantic Analysis (LSA)')
