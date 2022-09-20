@@ -38,7 +38,7 @@ fontsize = 17
 plt.style.use('ggplot')
 
 # %%
-from library import conver, read_file, format, count_list,count_dict,tf_idf
+from library import conver, read_file, format, count_list,count_dict,tf_idf,base_frame
 
 # %%
 # 读取示例数据
@@ -71,8 +71,15 @@ def file_pre(f):
 txt=file_pre(file)
 # %%
 st.write('You can use the cursor keys "←" and "→" to see more tags')
-herb_list = format.herb_list(txt)
-file_dict = format.file_dict(txt)
+
+frame=base_frame(txt)
+herb_list = frame.herb_list
+file_dict = frame.file_dict
+
+
+
+#herb_list = format.herb_list(txt)
+#file_dict = format.file_dict(txt)
 
 #total_herb_list = count_list.total_herb_list(herb_list)
 #total_herb_word_list = count_list.total_herb_word_list(herb_list)

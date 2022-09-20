@@ -71,6 +71,35 @@ class format:
                 list_vect.append(sen_row)
         return list_vect
 
+class base_frame:
+    def __init__(self,txt):
+        sentence = ""
+        for index, row in self.iterrows():
+            for sen in row:
+                sentence = sentence + sen + ','
+        herb_list = sentence.split(sep=',')
+        self.herb_list = herb_list
+        file_dict = dict()
+        for index, row in self.iterrows():
+            for sen in row:
+                per_vect = []
+                ws = sen.split(sep=',')
+                for herb in ws:
+                    per_vect.append(herb)
+                file_dict[index] = per_vect
+        self.file_dict = file_dict
+        list_vect = []
+        for index, row in self.iterrows():
+            for sen in row:
+                sen_row = []
+                sent = sen.split(sep=',')
+                ','.join(sent)
+                for herb in sent:
+                    sen_row.append(herb)
+                list_vect.append(sen_row)
+        self.list_vect = list_vect
+
+
 
 
 class count_dict:
