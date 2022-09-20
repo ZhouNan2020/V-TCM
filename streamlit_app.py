@@ -133,7 +133,7 @@ with tab1:
 #%%
 herb_dense_data_frame = f.dense_frame()
 lexicon = f.lexicon()
-tf_idf_dict = f.tf_idf_dict(file_dict,lexicon=lexicon)
+tf_idf_dict = f.tf_idf_dict(file_dict)
 tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
 
