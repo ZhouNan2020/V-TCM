@@ -74,13 +74,13 @@ class format:
 class base_frame:
     def __init__(self,txt):
         sentence = ""
-        for index, row in self.iterrows():
+        for index, row in txt.iterrows():
             for sen in row:
                 sentence = sentence + sen + ','
         herb_list = sentence.split(sep=',')
         self.herb_list = herb_list
         file_dict = dict()
-        for index, row in self.iterrows():
+        for index, row in txt.iterrows():
             for sen in row:
                 per_vect = []
                 ws = sen.split(sep=',')
@@ -89,7 +89,7 @@ class base_frame:
                 file_dict[index] = per_vect
         self.file_dict = file_dict
         list_vect = []
-        for index, row in self.iterrows():
+        for index, row in txt.iterrows():
             for sen in row:
                 sen_row = []
                 sent = sen.split(sep=',')
