@@ -92,43 +92,42 @@ file_dict = frame.file_dict
 #full_common_data = most_common_herb2.copy()
 
 with tab1:
-    if st.button('Activate descriptive statistics',key=1):
-        total_herb_list = count_list.total_herb_list(herb_list)
-        total_herb_word_list = count_list.total_herb_word_list(herb_list)
-        avg_len = count_dict.avg_len(file_dict)
-        count_herb = count_list.count_herb(file_dict)
+    total_herb_list = count_list.total_herb_list(herb_list)
+    total_herb_word_list = count_list.total_herb_word_list(herb_list)
+    avg_len = count_dict.avg_len(file_dict)
+    count_herb = count_list.count_herb(file_dict)
 
-        Counter_every_herb = count_list.count_herb(herb_list)
-        most_common_herb2 = Counter_every_herb.most_common()
-        most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
-        full_common_data = most_common_herb2.copy()
+    Counter_every_herb = count_list.count_herb(herb_list)
+    most_common_herb2 = Counter_every_herb.most_common()
+    most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
+    full_common_data = most_common_herb2.copy()
 
-        st.write('1.The total number of different herbs: ', total_herb_list)
-        st.write('2.The total number of herbs is:', total_herb_word_list)
-        st.write('3.The average length of prescription: ', round(avg_len, 0))
-        st.write('4.The most common herb')
-        num1 = st.select_slider(
-            'How many herbs do you need to display by frequency?',
-            options=range(1, 50, 1), key=1)
-        most_common_herb1 = Counter_every_herb.most_common(num1)
-        most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
-        if st.button('Launch', key=2):
-            st.write('The most common herb is: ')
-            st.table(most_common_herb1)
-            if most_common_herb1.empty == False:
-                fig1, ax1 = plt.subplots()
-                x = most_common_herb1['herb']
-                y = most_common_herb1['count']
-                y = list(y)
-                y.reverse()  # 倒序
-                ax1.barh(x, y, align='center', color='c', tick_label=list(x))
-                plt.ylabel('herbs', fontsize=fontsize, fontproperties=font)
-                plt.yticks(x,fontsize=fontsize,fontproperties=font)
-                st.pyplot(fig1)
-            close=st.button('Terminate descriptive statistics', key=3)
-            st.write('To ensure that the WebApp retains enough memory, try to terminate unneeded modules when appropriate')
-            if close:
-                st.experimental_memo.clear()
+    st.write('1.The total number of different herbs: ', total_herb_list)
+    st.write('2.The total number of herbs is:', total_herb_word_list)
+    st.write('3.The average length of prescription: ', round(avg_len, 0))
+    st.write('4.The most common herb')
+    num1 = st.select_slider(
+        'How many herbs do you need to display by frequency?',
+        options=range(1, 50, 1), key=1)
+    most_common_herb1 = Counter_every_herb.most_common(num1)
+    most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
+    if st.button('Launch', key=2):
+        st.write('The most common herb is: ')
+        st.table(most_common_herb1)
+        if most_common_herb1.empty == False:
+            fig1, ax1 = plt.subplots()
+            x = most_common_herb1['herb']
+            y = most_common_herb1['count']
+            y = list(y)
+            y.reverse()  # 倒序
+            ax1.barh(x, y, align='center', color='c', tick_label=list(x))
+            plt.ylabel('herbs', fontsize=fontsize, fontproperties=font)
+            plt.yticks(x,fontsize=fontsize,fontproperties=font)
+            st.pyplot(fig1)
+        close=st.button('Terminate descriptive statistics', key=3)
+        st.write('To ensure that the WebApp retains enough memory, try to terminate unneeded modules when appropriate')
+        if close:
+            st.experimental_memo.clear()
 #%%
 herb_dense_data_frame = count_dict.dense_frame(file_dict)
 list_vect = format.list_vect(txt)
