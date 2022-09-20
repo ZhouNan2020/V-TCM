@@ -125,10 +125,10 @@ with tab1:
                 plt.ylabel('herbs', fontsize=fontsize, fontproperties=font)
                 plt.yticks(x,fontsize=fontsize,fontproperties=font)
                 st.pyplot(fig1)
-        close=st.button('Terminate descriptive statistics', key=3)
-        st.write('To ensure that the WebApp retains enough memory, try to terminate unneeded modules when appropriate')
-        if close:
-            st.experimental_memo.clear()
+            close=st.button('Terminate descriptive statistics', key=3)
+            st.write('To ensure that the WebApp retains enough memory, try to terminate unneeded modules when appropriate')
+            if close:
+                st.experimental_memo.clear()
 #%%
 herb_dense_data_frame = count_dict.dense_frame(file_dict)
 list_vect = format.list_vect(txt)
