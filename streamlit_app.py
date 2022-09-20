@@ -38,7 +38,7 @@ fontsize = 17
 plt.style.use('ggplot')
 
 # %%
-from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,svd,sort,ldia
+from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,svd,sort,ldia,alt
 
 # %%
 # 读取示例数据
@@ -134,10 +134,11 @@ with tab1:
             st.pyplot(fig1)
     # 排序下载
     if full_common_data.empty == False:
-        full_common_data = conver(full_common_data)
+        full_common_herb = full_common_data.copy()
+        full_common_herb = conver(full_common_herb)
         st.download_button(
             label="Download full herb frequency data",
-            data=full_common_data.file,
+            data=full_common_herb.file,
             file_name='full_common_data.xlsx',
             mime='xlsx')
     # 密集矩阵下载
@@ -318,6 +319,59 @@ with tab5:
             file_name='ldia herb weight.xlsx')
 
         st.success('The topic classification based on LDiA is done,you can download this matrix in the "Download" tab')
+
+with tab6:
+    model=base_frame.w2v(avg_len=avg_len)
+    w2v_data = alt.alt_plot(model=model,full_common_data=full_common_data)
+    st.altair_chart(w2v_data, use_container_width=True)
+
+    op_w2v = st.radio('What\'s your favorite movie genre?',
+                      ('Similar herbal search', 'Herbal analogy', 'Compatibility assessment'))
+    if op_w2v == 'Similar herbal search':
+        st.subheader('Similar herbal search')
+        st.write('Please enter the name of the herb you want to search')
+        search_herb = st.text_input('Enter the herb', key=12)
+        search_button = st.button('Search', key=12)
+        if search_button:
+            feed_herb = model.wv.most_similar(positive=[search_herb], topn=10)
+            feed_herb = pd.DataFrame(feed_herb, columns=['herb', 'similarity'])
+            st.table(feed_herb)
+    if op_w2v=='Herbal analogy':
+        st.subheader('Herbal analogy')
+        st.write('Please enter the name of the herb you want to search')
+        st.write('If you want to directly compare the similarity of two herbs, please enter the herb name in Herb 1 and Herb 2')
+        search_herb_p1 = st.text_input('Herb 1',key=13)
+        search_herb_n1 = st.text_input('Herb 2',key=14)
+        st.write('If you want to use the method of analogy to explore the law of paired combination of herbs, please also fill in Analogy Item')
+        search_herb_p2 = st.text_input('Analogy Item',key=13)
+
+        search_button = st.button('Search', key=13)
+
+        if search_button:
+            if len(search_herb_p2)==0:
+                feed_herb=model.wv.similarity(search_herb_p1,search_herb_n1)
+                st.write('The similarity of {} and {} is {}'.format(search_herb_p1,search_herb_p2,feed_herb))
+            if len(search_herb_p2)>0:
+                feed_herb=model.wv.most_similar(positive=[search_herb_p2,search_herb_p1],negative=[search_herb_n1],topn=10)
+                feed_herb=pd.DataFrame(feed_herb,columns=['herb','vector_similarity'])
+                feed_herb=feed_herb.sort_values(by='vector_similarity',ascending=False)
+                best_match=feed_herb.iloc[0,0]
+                st.write('Imitating the combination rule of {} and {}, {}is a more matching herb with {}'.format(search_herb_p1,search_herb_n1,best_match,search_herb_p2))
+                st.write('Alternative herbs that can be paired with {} in the table below'.format(search_herb_p2))
+                st.table(feed_herb)
+
+    if op_w2v=='Compatibility assessment':
+        st.subheader('Compatibility assessment')
+        st.write('Please enter the herb list you want to assessment')
+        input_herb = st.text_input('Use "," (English format) to separate the herbs',key=15)
+        if st.button('Assessment', key=15):
+            if len(input_herb)>0:
+                input_herb_list = input_herb.split(',')
+                feed_herb=model.wv.doesnt_match(input_herb_list)
+                st.write('In this list of herbs, {} has the farthest vector distance from other herbs. Please evaluate whether the use of {} is reasonable in combination with the needs of clinical practice.'.format(feed_herb,feed_herb))
+
+
+
 
 
 

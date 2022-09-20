@@ -130,6 +130,11 @@ class base_frame:
     def total_herb_word_list(self):
         total_herb_word_list = len(self.herb_list)
         return total_herb_word_list
+    def w2v(self,avg_len):
+        model = gensim.models.Word2Vec(self.list_vect, sg=0, min_count=1, vector_size=100, window=avg_len)
+        return model
+
+
 
 
 class dot_cos_cal:
@@ -260,3 +265,26 @@ class ldia:
         components_pres = ldia.transform(df)
         components_pres = pd.DataFrame(components_pres, index=df.index, columns=columns)
         return components_herb, components_pres
+
+class alt:
+    def alt_plot(model,full_common_data):
+        a = pd.DataFrame(model.wv.index_to_key, columns=['name'])
+        b = pd.DataFrame(model.wv.vectors, index=a['name'])
+        pca = PCA(n_components=2, random_state=123)
+        pca = pca.fit(b)
+        pca_vectr = pca.transform(b)
+        full_common_data = full_common_data.set_index('herb')
+        columns = ['topic{}'.format(i) for i in range(pca.n_components)]
+        pca_topic = pd.DataFrame(pca_vectr, columns=columns, index=b.index)
+        pca_matrix = pca_topic.round(3)
+        pca_matrix = pca_matrix.join(full_common_data)
+        pca_matrix = pca_matrix.reset_index()
+        x = pca_matrix['topic0']
+        y = pca_matrix['topic1']
+        w2v_data = alt.Chart(pca_matrix).mark_circle().encode(
+            x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count']).interactive()
+        return w2v_data
+
+
+
+
