@@ -227,14 +227,14 @@ with tab3:
             st.table(tf_idf_sort.head(num7))
             idf_x1 = list((tf_idf_sort.head(num7)).index)
             idf_y1 = list((tf_idf_sort['tf_idf_value'].head(num7)))
-            plt.bar(idf_x1, idf_y1)
+            plt.barh(idf_x1, idf_y1)
             st.pyplot(plt)
         with tab3_col2:
             st.write('{} rarely used herbs'.format(num7))
             st.table(tf_idf_sort.tail(num7))
             idf_x2 = list((tf_idf_sort.tail(num7)).index)
             idf_y2 = list((tf_idf_sort['tf_idf_value'].tail(num7)))
-            plt.bar(idf_x2, idf_y2)
+            plt.barh(idf_x2, idf_y2)
             st.pyplot(plt)
 
 
