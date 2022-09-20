@@ -279,11 +279,8 @@ class alt:
         pca_matrix = pca_topic.round(3)
         pca_matrix = pca_matrix.join(full_common_data)
         pca_matrix = pca_matrix.reset_index()
-        x = pca_matrix['topic0']
-        y = pca_matrix['topic1']
-        w2v_data = alt.Chart(pca_matrix).mark_circle().encode(
-            x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count']).interactive()
-        return w2v_data
+        return pca_matrix
+
 
 
 

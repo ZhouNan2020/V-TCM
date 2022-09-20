@@ -322,7 +322,11 @@ with tab5:
 
 with tab6:
     model=f.w2v(avg_len=avg_len)
-    w2v_data = alt.alt_plot(model=model,full_common_data=full_common_data)
+    pca_matrix = alt.alt_plot(model=model,full_common_data=full_common_data)
+    x = pca_matrix['topic0']
+    y = pca_matrix['topic1']
+    w2v_data = alt.Chart(pca_matrix).mark_circle().encode(
+        x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count']).interactive()
     st.altair_chart(w2v_data, use_container_width=True)
 
     op_w2v = st.radio('What\'s your favorite movie genre?',
