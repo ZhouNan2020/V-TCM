@@ -67,6 +67,8 @@ def file_pre(f):
         txt = read_file.read(file)
     else:
         txt = pd.DataFrame(out1)
+        col = txt.columns
+        txt = txt.set_index(col[0])
     return txt
 txt=file_pre(file)
 # %%
