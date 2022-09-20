@@ -237,3 +237,26 @@ class svd:
                                        index=columns)
         herb_svd_weight = herb_svd_weight.T
         return pres_svd_topic, herb_svd_weight
+
+class ldia:
+    def ldia_topic(df,num):
+        x = []
+        y = []
+        for i in range(1, num + 1):
+            ldia = LDiA(n_components=i, learning_method='batch', evaluate_every=1, verbose=1, max_iter=50,
+                        random_state=123)
+            ldia = ldia.fit(df)
+            plex = ldia.perplexity(df)
+            x.append(i)
+            y.append(plex)
+        ldia_topic = pd.DataFrame(y, columns=['perplexity'], index=x)
+        return ldia_topic
+    def ldia_confirm(df,num):
+        ldia = LDiA(n_components=num, learning_method='batch', evaluate_every=1, verbose=1, max_iter=50,
+                    random_state=123)
+        ldia = ldia.fit(df)
+        columns = ['topic{}'.format(i) for i in range(ldia.n_components)]
+        components_herb = pd.DataFrame(ldia.components_.T, index=df.columns, columns=columns)
+        components_pres = ldia.transform(df)
+        components_pres = pd.DataFrame(components_pres, index=df.index, columns=columns)
+        return components_herb, components_pres

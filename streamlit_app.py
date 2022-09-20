@@ -38,7 +38,7 @@ fontsize = 17
 plt.style.use('ggplot')
 
 # %%
-from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,svd,sort
+from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,svd,sort,ldia
 
 # %%
 # 读取示例数据
@@ -283,4 +283,41 @@ with tab4:
                     label='Download svd weight matrix',
                     data=herb_svd_weight.file,
                     file_name='svd herb weight.xlsx')
+
+with tab5:
+    st.subheader('Topic classification based on Latent Dirichlet Distribution (LDiA)')
+    num5 = st.select_slider(
+        'Please select the maximum number of themes you wish to try',
+        options=range(1, 100, 1), key=6)
+    ldia_button_pressed = st.button('Launch', key=10)
+    if ldia_button_pressed == True:
+        ldia_topic = ldia.ldia_topic(num=num5, df=herb_dense_dataframe)
+        st.line_chart(ldia_topic)
+        with st.expander("See explanation"):
+            st.write(
+                'Perplexity is an important reference indicator for determining the number of topics in the LDiA model. When perplexity is at its lowest point, we can take the value here as the number of reserved topics')
+    st.write(
+        'If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
+    num5_con = st.number_input('Enter the number of topics you have confirmed', step=1, format='%d', key=11)
+    ldia_button_con = st.button('Continue', key=11)
+    if ldia_button_con:
+        components_herb = (ldia.ldia_confirm(num=num5_con, df=herb_dense_dataframe))[0]
+        components_pres = (ldia.ldia_confirm(num=num5_con, df=herb_dense_dataframe))[1]
+        st.table(components_pres.head(5))
+        st.table(components_herb.head(5))
+        components_herb = conver(components_herb)
+        components_pres = conver(components_pres)
+        st.download_button(
+            label='Download ldia topic matrix',
+            data=components_pres.file,
+            file_name='ldia topic.xlsx')
+
+        st.download_button(
+            label='Download ldia herb weight matrix',
+            data=components_herb.file,
+            file_name='ldia herb weight.xlsx')
+
+        st.success('The topic classification based on LDiA is done,you can download this matrix in the "Download" tab')
+
+
 
