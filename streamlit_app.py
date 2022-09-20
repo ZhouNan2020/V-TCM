@@ -97,9 +97,9 @@ with tab1:
     total_herb_list = f.total_herb_list()
     total_herb_word_list = f.total_herb_word_list()
     avg_len = f.avg_len()
-    count_herb = f.count_herb(file_dict)
+    count_herb = f.count_herb()
 
-    Counter_every_herb = f.count_herb(herb_list)
+    Counter_every_herb = f.count_herb()
     most_common_herb2 = Counter_every_herb.most_common()
     most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
     full_common_data = most_common_herb2.copy()
