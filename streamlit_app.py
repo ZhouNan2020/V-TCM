@@ -54,9 +54,9 @@ with st.sidebar:
     file = st.file_uploader("Click “Browse files” to upload files", type=["xlsx"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .xlsx file')
-    st.download_button('Download sample data in English', data=eng_exmp, file_name='sample data in English.xlsx',
+    st.download_button('Download sample data in English', data=eng_exmp.file, file_name='sample data in English.xlsx',
                        )
-    st.download_button('下载中文示例数据', data=chn_exmp, file_name='中文示例数据.xlsx')
+    st.download_button('下载中文示例数据', data=chn_exmp.file, file_name='中文示例数据.xlsx')
     st.write('Note: You can understand the workflow of this program by uploading sample data.')
     st.write(
         'Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
@@ -75,12 +75,24 @@ def file_pre(f):
 txt=file_pre(file)
 # %%
 st.write('You can use the cursor keys "←" and "→" to see more tags')
-conver=conver()
+
 f=base_frame(txt)
 herb_list = f.herb_list
 file_dict = f.file_dict
 list_vect = f.list_vect
+total_herb_list = f.total_herb_list()
+total_herb_word_list = f.total_herb_word_list()
+avg_len = f.avg_len()
+count_herb = f.count_herb()
 
+Counter_every_herb = f.count_herb()
+most_common_herb2 = Counter_every_herb.most_common()
+most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
+full_common_data = most_common_herb2.copy()
+herb_dense_dataframe = f.herb_dense_dataframe()
+lexicon = f.lexicon()
+tf_idf_dict = f.tf_idf_dict(lexicon=lexicon)
+idf_df=tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
 #herb_list = format.herb_list(txt)
 #file_dict = format.file_dict(txt)
@@ -96,15 +108,7 @@ list_vect = f.list_vect
 #full_common_data = most_common_herb2.copy()
 
 with tab1:
-    total_herb_list = f.total_herb_list()
-    total_herb_word_list = f.total_herb_word_list()
-    avg_len = f.avg_len()
-    count_herb = f.count_herb()
 
-    Counter_every_herb = f.count_herb()
-    most_common_herb2 = Counter_every_herb.most_common()
-    most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
-    full_common_data = most_common_herb2.copy()
 
     st.write('1.The total number of different herbs: ', total_herb_list)
     st.write('2.The total number of herbs is:', total_herb_word_list)
@@ -128,36 +132,35 @@ with tab1:
             plt.ylabel('herbs', fontsize=fontsize, fontproperties=font)
             plt.yticks(x,fontsize=fontsize,fontproperties=font)
             st.pyplot(fig1)
+    # 排序下载
     if full_common_data.empty == False:
-        full_common_data = convert_df(full_common_data)
+        full_common_data = conver(full_common_data)
         st.download_button(
             label="Download full herb frequency data",
-            data=full_common_data,
+            data=full_common_data.file,
             file_name='full_common_data.xlsx',
             mime='xlsx')
     # 密集矩阵下载
     if herb_dense_dataframe.empty == False:
-        herb_dense_dataframe = convert_df(herb_dense_dataframe)
+        herb_dense_dataframe = conver(herb_dense_dataframe)
         st.download_button(
             label='Download dense matrix',
-            data=herb_dense_dataframe,
+            data=herb_dense_dataframe.file,
             file_name='dense matrix.xlsx')
     # tf-idf矩阵下载
     if idf_df.empty == False:
-        tf_idf_matrix = convert_df(idf_df)
+        tf_idf_matrix = conver(idf_df)
         st.download_button(
             label='Download tf_idf_matrix',
-            data=tf_idf_matrix,
+            data=tf_idf_matrix.file,
             file_name='tf_idf_matrix.xlsx')
         close=st.button('Terminate descriptive statistics', key=3)
         st.write('To ensure that the WebApp retains enough memory, try to terminate unneeded modules when appropriate')
         if close:
             st.experimental_memo.clear()
 #%%
-herb_dense_dataframe = f.herb_dense_dataframe()
-lexicon = f.lexicon()
-tf_idf_dict = f.tf_idf_dict(lexicon=lexicon)
-tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
+
+
 
 
 with tab2:
