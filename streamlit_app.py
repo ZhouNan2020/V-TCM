@@ -137,7 +137,30 @@ tf_idf_dict = f.tf_idf_dict(file_dict)
 tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
 
-#with tab2:
+with tab2:
+    st.write('3.Focus on dot product and cosine similarity for a specific prescription')
+    options = list(txt.index)
+    select_result = st.multiselect(
+        'Please select the name of the prescription you wish to follow', options=options, key=7)
+    dense_dot_df = pd.DataFrame()
+    cos_dot_df = pd.DataFrame()
+    if st.button('Launch', key=8):
+        dot=(f.dot_cos(select_result=select_result))[0]
+        cos=(f.dot_cos(select_result=select_result))[1]
+
+        fig2, ax2 = plt.subplots()
+        sns.heatmap(dot, annot=True, fmt=".2g", linewidths=.5, cmap='YlOrRd')
+        ax2.set_title('Dot product')
+        plt.xticks(font=font)
+        plt.yticks(font=font)
+        st.pyplot(fig2)
+
+        fig3, ax3 = plt.subplots()
+        sns.heatmap(cos, annot=True, fmt=".2g", linewidths=.5, cmap='YlGnBu')
+        ax3.set_title('Cosine similarity')
+        plt.xticks(font=font)
+        plt.yticks(font=font)
+        st.pyplot(fig3)
 
 
 

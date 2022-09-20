@@ -129,6 +129,25 @@ class base_frame:
     def total_herb_word_list(self):
         total_herb_word_list = len(self.herb_list)
         return total_herb_word_list
+    def dot_cos(self,select_result,herb_dense_dataframe):
+        dot_df = pd.DataFrame()
+        cos_df = pd.DataFrame()
+        for res1 in select_result:
+            dot_matrix = pd.DataFrame()
+            cos_matrix = pd.DataFrame()
+            for res2 in select_result:
+                vec1 = herb_dense_dataframe.loc[res1]
+                vec2 = herb_dense_dataframe.loc[res2]
+                dot = np.dot(vec1, vec2)
+                cos = dot / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
+                dot_matrix = dot_matrix.join(pd.DataFrame(dot,columns=[res2],index=[res1]), how='right')
+                cos_matrix = cos_matrix.join(pd.DataFrame(cos,columns=[res2],index=[res1]), how='right')
+            dot_df = pd.concat([dot_df, dot_matrix], axis=0, join="outer")
+            cos_df = pd.concat([cos_df, cos_matrix], axis=0, join="outer")
+        return dot_df, cos_df
+
+
+
 
 
 
