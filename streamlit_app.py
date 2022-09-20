@@ -252,15 +252,15 @@ with tab4:
             st.table(pres_svd_topic.head(5))
             st.table(herb_svd_weight.head(5))
             st.success('The topic classification based on LSA is done,you can download this matrix')
-        if pres_svd_topic.empty == False and herb_svd_weight.empty == False:
-            pres_svd_topic = conver(pres_svd_topic)
-            st.download_button(
-                label='Download svd topic matrix',
-                data=pres_svd_topic.file,
-                file_name='svd topic.xlsx')
-            herb_svd_weight = conver(herb_svd_weight)
-            st.download_button(
-                label='Download svd weight matrix',
-                data=herb_svd_weight.file,
-                file_name='svd herb weight.xlsx')
+            if pres_svd_topic.empty == False and herb_svd_weight.empty == False:
+                pres_svd_topic = conver(pres_svd_topic)
+                st.download_button(
+                    label='Download svd topic matrix',
+                    data=pres_svd_topic.file,
+                    file_name='svd topic.xlsx')
+                herb_svd_weight = conver(herb_svd_weight)
+                st.download_button(
+                    label='Download svd weight matrix',
+                    data=herb_svd_weight.file,
+                    file_name='svd herb weight.xlsx')
 
