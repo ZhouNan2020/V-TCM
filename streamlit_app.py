@@ -11,8 +11,8 @@ import altair as alt
 # 全局设置
 # streamlit
 tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs(
-    ["Descriptive statistics", "Prescription similarity", "herbal generality",
-     "LSA topic distribution", "LDiA topic distribution","word embedding",
+    ["Descriptive statistics", "Prescription similarity", "Herbal generality",
+     "LSA topic distribution", "LDiA topic distribution","Word embedding",
      "About the program"])
 
 # matplotlib
