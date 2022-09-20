@@ -38,7 +38,7 @@ fontsize = 17
 plt.style.use('ggplot')
 
 # %%
-from library import conver, read_file,tf_idf, base_frame,dot_cos_cal
+from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,sort,svd
 
 # %%
 # 读取示例数据
@@ -92,7 +92,7 @@ full_common_data = most_common_herb2.copy()
 herb_dense_dataframe = f.herb_dense_dataframe()
 lexicon = f.lexicon()
 tf_idf_dict = f.tf_idf_dict(lexicon=lexicon)
-idf_df=tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
+idf_df = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
 #herb_list = format.herb_list(txt)
 #file_dict = format.file_dict(txt)
@@ -160,11 +160,8 @@ with tab1:
             st.experimental_memo.clear()
 #%%
 
-
-
-
 with tab2:
-    st.write('3.Focus on dot product and cosine similarity for a specific prescription')
+    st.write('Focus on dot product and cosine similarity for a specific prescription')
     options = list(txt.index)
     select_result = st.multiselect(
         'Please select the name of the prescription you wish to follow', options=options, key=7)
@@ -199,4 +196,71 @@ with tab2:
         'Reminder: We recommend that you start the process with the desktop app whenever possible, however, time consuming and system crashes are still possible roadblocks')
 
 
+with tab3:
+    tf_idf_sort = sort.tf_idf_sort(idf_df=idf_df)
+    st.success(
+        "The calculation of Featured and generic herbs has been completed, please select the number of herbs you need to present")
+    num7 = st.select_slider(
+        'Please select the number of themes you wish to try',
+        options=range(1, 50, 1), key=7)
+    tab3_col1, tab3_col2 = st.columns(2)
+
+    idf_button_con = st.button('Continue', key=13)
+    if idf_button_con:
+        with tab3_col1:
+            st.write('{} widely used herbs'.format(num7))
+            st.table(tf_idf_sort.head(num7))
+            idf_x1 = list((tf_idf_sort.head(num7)).index)
+            idf_y1 = list((tf_idf_sort['tf_idf_value'].head(num7)))
+            plt.bar(idf_x1, idf_y1)
+            st.pyplot(plt)
+        with tab3_col2:
+            st.write('{} rarely used herbs'.format(num7))
+            st.table(tf_idf_sort.tail(num7))
+            idf_x2 = list((tf_idf_sort.tail(num7)).index)
+            idf_y2 = list((tf_idf_sort['tf_idf_value'].tail(num7)))
+            plt.bar(idf_x2, idf_y2)
+            st.pyplot(plt)
+
+
+with tab4:
+    st.subheader('Topic classification based on Latent Semantic Analysis (LSA)')
+    num4 = st.select_slider(
+        'Please select the number of themes you wish to try',
+        options=range(1, 100, 1), key=5)
+    svd_button_pressed = st.button('Launch', key=5)
+    if svd_button_pressed == True:
+        if num4 < len(txt.index):
+            lsa_topic=svd.svd_topic(num=num4,df=idf_df)
+            st.line_chart(lsa_topic)
+            with st.expander("See explanation",key=1):
+                st.write('Explained variance ratio: The amount of information extracted by the topic can be understood as the weight of different topics. The higher the weight, the more information the topic can extract from the document. The lower the weight, the less information the topic can extract from the document. The weight of a topic is the square root of the sum of the square of the singular values of the topic. The weight of a topic is the square root of the sum of the square of the singular values of the topic.')
+                st.write('Cumulative explained variance ratio: Under the current number of topics, the total amount of information extracted by all topics, this indicator needs to be at least greater than 50%')
+                st.write('Singular values: The singular values of the topic are the square root of the sum of the square of the singular values of the topic,determines the number of topics when the downtrend in this value begins to flatten')
+        else:
+            st.write(
+                'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
+
+    with st.expander("Confirm the number of LSA classifications",key=2):
+        st.write(
+            'If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
+        num4_con = st.number_input('Enter the number of topics you have confirmed', step=1, format='%d', key=10)
+        svd_button_con = st.button('Continue', key=10)
+        if svd_button_con:
+            pres_svd_topic = (svd.svd_confirm(num=num4_con, df=idf_df))[0]
+            herb_svd_weight = (svd.svd_confirm(num=num4_con, df=idf_df))[1]
+            st.table(pres_svd_topic.head(5))
+            st.table(herb_svd_weight.head(5))
+            st.success('The topic classification based on LSA is done,you can download this matrix')
+        if pres_svd_topic.empty == False and herb_svd_weight.empty == False:
+            pres_svd_topic = conver(pres_svd_topic)
+            st.download_button(
+                label='Download svd topic matrix',
+                data=pres_svd_topic.file,
+                file_name='svd topic.xlsx')
+            herb_svd_weight = conver(herb_svd_weight)
+            st.download_button(
+                label='Download svd weight matrix',
+                data=herb_svd_weight.file,
+                file_name='svd herb weight.xlsx')
 

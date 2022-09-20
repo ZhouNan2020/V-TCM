@@ -133,8 +133,6 @@ class base_frame:
 
 
 class dot_cos_cal:
-
-
     def dot_cos(select_result,herb_dense_dataframe):
         dot_df = pd.DataFrame()
         cos_df = pd.DataFrame()
@@ -175,11 +173,6 @@ class dot_cos_cal:
         return cos_df
 
 
-
-
-
-
-
 class tf_idf:
     def tf_idf_dataframe(self):
         tf_idf_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
@@ -205,3 +198,42 @@ class tf_idf:
         idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
         idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
         return idf_df
+
+class sort(tf_idf):
+    def tf_idf_sort(idf_df):
+        tf_idf_sort = pd.DataFrame(columns=['herb', 'tf_idf_value'])
+        for index, row in idf_df.iterrows():
+            for idf_i in row:
+                idf_value = idf_i
+                herb_name = idf_df.columns[idf_df.loc[index] == idf_i].values[0]
+                tf_idf_sort = tf_idf_sort.append({'herb': herb_name, 'tf_idf_value': idf_value}, ignore_index=True)
+        tf_idf_sort = tf_idf_sort.sort_values(by=['tf_idf_value'], ascending=False)
+        tf_idf_sort = tf_idf_sort.set_index("herb")
+        return tf_idf_sort
+
+
+class svd:
+    def svd_topic(df,num):
+        df = df.T
+        svd = TruncatedSVD(n_components=num, n_iter=10, random_state=123)
+        svd_model = svd.fit(df)
+        svd_topic = svd.transform(df)
+        explvara_list = list(svd.explained_variance_ratio_)
+        sing = svd_model.singular_values_
+        expl_cum = np.cumsum(explvara_list)
+        lsa_topic = pd.DataFrame(
+            {'topic': range(1, num + 1), 'explained_variance': explvara_list, 'cumulative_explained_variance': expl_cum,
+             'singular_values': sing})
+        lsa_topic = lsa_topic.set_index('topic')
+        return lsa_topic
+    def svd_confirm(df,num):
+        df = df.T
+        svd = TruncatedSVD(n_components=num, n_iter=10, random_state=123)
+        svd_model = svd.fit(df)
+        svd_topic = svd.transform(df)
+        columns = ['topic{}'.format(i) for i in range(svd.n_components)]
+        pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=df.index)
+        herb_svd_weight = pd.DataFrame(svd.components_, columns=df.columns,
+                                       index=columns)
+        herb_svd_weight = herb_svd_weight.T
+        return pres_svd_topic, herb_svd_weight
