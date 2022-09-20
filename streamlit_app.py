@@ -38,7 +38,7 @@ fontsize = 17
 plt.style.use('ggplot')
 
 # %%
-from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,svd,sort,ldia,alt
+from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,svd,sort,ldia,alt_plot
 
 # %%
 # 读取示例数据
@@ -322,7 +322,7 @@ with tab5:
 
 with tab6:
     model=f.w2v(avg_len=avg_len)
-    pca_matrix = alt.alt_plot(model=model,full_common_data=full_common_data)
+    pca_matrix = alt_plot.alt_plot(model=model,full_common_data=full_common_data)
     x = pca_matrix['topic0']
     y = pca_matrix['topic1']
     w2v_data = alt.Chart(pca_matrix).mark_circle().encode(

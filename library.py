@@ -266,7 +266,7 @@ class ldia:
         components_pres = pd.DataFrame(components_pres, index=df.index, columns=columns)
         return components_herb, components_pres
 
-class alt:
+class alt_plot:
     def alt_plot(model,full_common_data):
         a = pd.DataFrame(model.wv.index_to_key, columns=['name'])
         b = pd.DataFrame(model.wv.vectors, index=a['name'])
