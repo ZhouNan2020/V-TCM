@@ -21,9 +21,9 @@ import altair as alt
 # Path: V-TCM\streamlit_app.py
 # 全局设置
 # streamlit
-tab1, tab2, tab3, tab4, tab5, tab6,tab7,tab8 = st.tabs(
+tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "herbal generality",
-     "LSA topic distribution", "LDiA topic distribution","word embedding", "Download",
+     "LSA topic distribution", "LDiA topic distribution","word embedding",
      "About the program"])
 
 # matplotlib
