@@ -188,12 +188,15 @@ with tab2:
         plt.yticks(font=font)
         st.pyplot(fig3)
 
-    st.write('Reminder: Calculating the dot product and cosine between all prescriptions can take a lot of time and cause the program to crash, depending on your dataset size')
-    st.write('Reminder: We recommend that you start the process with the desktop app whenever possible, however, time consuming and system crashes are still possible roadblocks')
+
     if st.button('Calculate the dot product between all prescriptions', key=9):
         dense_dot_df = dot_cos_cal.dot(herb_dense_dataframe=herb_dense_dataframe)
     if st.button('Calculate the cosine similarity between all prescriptions', key=10):
         cos_dot_df = dot_cos_cal.cos(herb_dense_dataframe=herb_dense_dataframe)
+    st.write(
+        'Reminder: Calculating the dot product and cosine between all prescriptions can take a lot of time and cause the program to crash, depending on your dataset size')
+    st.write(
+        'Reminder: We recommend that you start the process with the desktop app whenever possible, however, time consuming and system crashes are still possible roadblocks')
 
 
 
