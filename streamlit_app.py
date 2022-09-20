@@ -38,14 +38,15 @@ fontsize = 17
 plt.style.use('ggplot')
 
 # %%
-from library import conver, read_file,tf_idf, base_frame
+from library import conver, read_file,tf_idf, base_frame,dot_cos_cal
 
 # %%
 # 读取示例数据
 out1 = pd.read_excel('English example.xlsx')
 out2 = pd.read_excel('中文示例.xlsx')
-eng_exmp = conver.to_xlsx(out1)
-chn_exmp = conver.to_xlsx(out2)
+c=conver()
+eng_exmp = c(out1)
+chn_exmp = c(out2)
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
@@ -73,7 +74,7 @@ def file_pre(f):
 txt=file_pre(file)
 # %%
 st.write('You can use the cursor keys "←" and "→" to see more tags')
-
+conver=conver()
 f=base_frame(txt)
 herb_list = f.herb_list
 file_dict = f.file_dict
@@ -126,6 +127,27 @@ with tab1:
             plt.ylabel('herbs', fontsize=fontsize, fontproperties=font)
             plt.yticks(x,fontsize=fontsize,fontproperties=font)
             st.pyplot(fig1)
+    if full_common_data.empty == False:
+        full_common_data = convert_df(full_common_data)
+        st.download_button(
+            label="Download full herb frequency data",
+            data=full_common_data,
+            file_name='full_common_data.xlsx',
+            mime='xlsx')
+    # 密集矩阵下载
+    if herb_dense_dataframe.empty == False:
+        herb_dense_dataframe = convert_df(herb_dense_dataframe)
+        st.download_button(
+            label='Download dense matrix',
+            data=herb_dense_dataframe,
+            file_name='dense matrix.xlsx')
+    # tf-idf矩阵下载
+    if idf_df.empty == False:
+        tf_idf_matrix = convert_df(idf_df)
+        st.download_button(
+            label='Download tf_idf_matrix',
+            data=tf_idf_matrix,
+            file_name='tf_idf_matrix.xlsx')
         close=st.button('Terminate descriptive statistics', key=3)
         st.write('To ensure that the WebApp retains enough memory, try to terminate unneeded modules when appropriate')
         if close:
@@ -145,8 +167,8 @@ with tab2:
     dense_dot_df = pd.DataFrame()
     cos_dot_df = pd.DataFrame()
     if st.button('Launch', key=8):
-        dot=(f.dot_cos(select_result=select_result,herb_dense_dataframe=herb_dense_dataframe))[0]
-        cos=(f.dot_cos(select_result=select_result,herb_dense_dataframe=herb_dense_dataframe))[1]
+        dot=(dot_cos_cal.dot_cos(select_result=select_result,herb_dense_dataframe=herb_dense_dataframe))[0]
+        cos=(dot_cos_cal.dot_cos(select_result=select_result,herb_dense_dataframe=herb_dense_dataframe))[1]
 
         fig2, ax2 = plt.subplots()
         sns.heatmap(dot, annot=True, fmt=".2g", linewidths=.5, cmap='YlOrRd')
@@ -161,6 +183,13 @@ with tab2:
         plt.xticks(font=font)
         plt.yticks(font=font)
         st.pyplot(fig3)
+
+    st.write('Reminder: Calculating the dot product and cosine between all prescriptions can take a lot of time and cause the program to crash, depending on your dataset size')
+    st.write('Reminder: We recommend that you start the process with the desktop app whenever possible, however, time consuming and system crashes are still possible roadblocks')
+    if st.button('Calculate the dot product between all prescriptions', key=9):
+        dense_dot_df = dot_cos_cal.dot(herb_dense_dataframe=herb_dense_dataframe)
+    if st.button('Calculate the cosine similarity between all prescriptions', key=10):
+        cos_dot_df = dot_cos_cal.cos(herb_dense_dataframe=herb_dense_dataframe)
 
 
 
