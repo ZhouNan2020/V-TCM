@@ -131,9 +131,9 @@ with tab1:
         if close:
             st.experimental_memo.clear()
 #%%
-herb_dense_data_frame = f.herb_dense_dataframe()
+herb_dense_dataframe = f.herb_dense_dataframe()
 lexicon = f.lexicon()
-tf_idf_dict = f.tf_idf_dict(file_dict)
+tf_idf_dict = f.tf_idf_dict(lexicon=lexicon)
 tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
 
@@ -145,8 +145,8 @@ with tab2:
     dense_dot_df = pd.DataFrame()
     cos_dot_df = pd.DataFrame()
     if st.button('Launch', key=8):
-        dot=(f.dot_cos(select_result=select_result))[0]
-        cos=(f.dot_cos(select_result=select_result))[1]
+        dot=(f.dot_cos(select_result=select_result,herb_dense_dataframe=herb_dense_dataframe))[0]
+        cos=(f.dot_cos(select_result=select_result,herb_dense_dataframe=herb_dense_dataframe))[1]
 
         fig2, ax2 = plt.subplots()
         sns.heatmap(dot, annot=True, fmt=".2g", linewidths=.5, cmap='YlOrRd')
