@@ -233,7 +233,7 @@ with tab4:
         if num4 < len(txt.index):
             lsa_topic=svd.svd_topic(num=num4,df=idf_df)
             st.line_chart(lsa_topic)
-            with st.expander("See explanation",key=1):
+            with st.expander("See explanation"):
                 st.write('Explained variance ratio: The amount of information extracted by the topic can be understood as the weight of different topics. The higher the weight, the more information the topic can extract from the document. The lower the weight, the less information the topic can extract from the document. The weight of a topic is the square root of the sum of the square of the singular values of the topic. The weight of a topic is the square root of the sum of the square of the singular values of the topic.')
                 st.write('Cumulative explained variance ratio: Under the current number of topics, the total amount of information extracted by all topics, this indicator needs to be at least greater than 50%')
                 st.write('Singular values: The singular values of the topic are the square root of the sum of the square of the singular values of the topic,determines the number of topics when the downtrend in this value begins to flatten')
@@ -241,7 +241,7 @@ with tab4:
             st.write(
                 'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
 
-    with st.expander("Confirm the number of LSA classifications",key=2):
+    with st.expander("Confirm the number of LSA classifications"):
         st.write(
             'If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
         num4_con = st.number_input('Enter the number of topics you have confirmed', step=1, format='%d', key=10)
