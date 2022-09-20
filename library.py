@@ -199,7 +199,7 @@ class tf_idf:
         idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
         return idf_df
 
-class sort(tf_idf):
+class sort:
     def tf_idf_sort(idf_df):
         tf_idf_sort = pd.DataFrame(columns=['herb', 'tf_idf_value'])
         for index, row in idf_df.iterrows():

@@ -38,7 +38,7 @@ fontsize = 17
 plt.style.use('ggplot')
 
 # %%
-from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,sort,svd
+from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,svd,sort
 
 # %%
 # 读取示例数据
