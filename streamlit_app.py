@@ -189,25 +189,27 @@ with tab2:
 
     if st.button('Calculate the dot product between all prescriptions', key=9):
         dense_dot_df = dot_cos_cal.dot(herb_dense_dataframe=herb_dense_dataframe)
+        dense_dot = conver(dense_dot_df)
+        st.download_button(
+            label='Download dot_product_matrix',
+            data=dense_dot,
+            file_name='dense dot product.xlsx')
     if st.button('Calculate the cosine similarity between all prescriptions', key=10):
         cos_dot_df = dot_cos_cal.cos(herb_dense_dataframe=herb_dense_dataframe)
+        cos_dot = conver(cos_dot_df)
+        st.download_button(
+            label='Download cosine similarity matrix',
+            data=cos_dot,
+            file_name='cosine similarity.xlsx')
     st.write(
         'Reminder: Calculating the dot product and cosine between all prescriptions can take a lot of time and cause the program to crash, depending on your dataset size')
     st.write(
         'Reminder: We recommend that you start the process with the desktop app whenever possible, however, time consuming and system crashes are still possible roadblocks')
 
-    dense_dot = conver(dense_dot_df)
-    st.download_button(
-        label='Download dot_product_matrix',
-        data=dense_dot,
-        file_name='dense dot product.xlsx')
+    
     
 
-    cos_dot = conver(cos_dot_df)
-    st.download_button(
-        label='Download cosine similarity matrix',
-                data=cos_dot,
-                file_name='cosine similarity.xlsx')
+
 
 with tab3:
     tf_idf_sort = sort.tf_idf_sort(idf_df=idf_df)
