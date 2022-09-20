@@ -38,7 +38,7 @@ fontsize = 17
 plt.style.use('ggplot')
 
 # %%
-from library import conver, read_file, format, count_list,count_dict,tf_idf, base_frame
+from library import conver, read_file,tf_idf, base_frame
 
 # %%
 # 读取示例数据
@@ -74,10 +74,10 @@ txt=file_pre(file)
 # %%
 st.write('You can use the cursor keys "←" and "→" to see more tags')
 
-frame=base_frame(txt)
-herb_list = frame.herb_list
-file_dict = frame.file_dict
-
+f=base_frame(txt)
+herb_list = f.herb_list
+file_dict = f.file_dict
+list_vect = f.list_vect
 
 
 #herb_list = format.herb_list(txt)
@@ -131,10 +131,9 @@ with tab1:
         if close:
             st.experimental_memo.clear()
 #%%
-herb_dense_data_frame = count_dict.dense_frame(file_dict)
-list_vect = format.list_vect(txt)
-lexicon = sorted(set(herb_list))
-tf_idf_dict = count_dict.tf_idf_dict(file_dict,list_vect=list_vect, lexicon=lexicon)
+herb_dense_data_frame = f.dense_frame()
+lexicon = f.lexicon()
+tf_idf_dict = f.tf_idf_dict(file_dict,lexicon=lexicon)
 tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
 

@@ -39,38 +39,6 @@ class read_file:
        txt = txt.set_index(col[0])
        return txt
 
-## 计数对象
-class format:
-    len_herb_list = 0
-    def herb_list(self):
-        sentence = ""
-        for index, row in self.iterrows():
-            for sen in row:
-                sentence = sentence + sen + ','
-        herb_list = sentence.split(sep=',')
-        return herb_list
-    def file_dict(self):
-        file_dict = dict()
-        for index, row in self.iterrows():
-            for sen in row:
-                per_vect = []
-                ws = sen.split(sep=',')
-                for herb in ws:
-                    per_vect.append(herb)
-                file_dict[index] = per_vect
-        return file_dict
-    def list_vect(self):
-        list_vect = []
-        for index, row in self.iterrows():
-            for sen in row:
-                sen_row = []
-                sent = sen.split(sep=',')
-                ','.join(sent)
-                for herb in sent:
-                    sen_row.append(herb)
-                list_vect.append(sen_row)
-        return list_vect
-
 class base_frame:
     def __init__(self,txt):
         sentence = ""
@@ -98,27 +66,22 @@ class base_frame:
                     sen_row.append(herb)
                 list_vect.append(sen_row)
         self.list_vect = list_vect
-
-
-
-
-class count_dict:
     def count_herb(self):
-        total_len = len(self.keys())
+        total_len = len(self.file_dict.keys())
         return total_len
     def avg_len(self):
         len_herb_list = 0
-        for index in self.keys():
-            herb_list = self.get(index)
+        for index in self.file_dict.keys():
+            herb_list = self.file_dict.get(index)
             herb_list = list(set(herb_list))
             len_list = len(herb_list)
             len_herb_list = len_herb_list + len_list
-        avg_len = len_herb_list / (len(self.keys()))
+        avg_len = len_herb_list / (len(self.file_dict.keys()))
         return avg_len
     def dense_frame(self):
         herb_dense_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
-        for pres_name in self.keys():
-            herb_list = self.get(pres_name)
+        for pres_name in self.file_dict.keys():
+            herb_list = self.file_dict.get(pres_name)
             pres_name = [pres_name]
             pres_name = pd.DataFrame(pres_name, columns=['pres_name'])
             herb_dense_dataframe = pd.concat([herb_dense_dataframe, pres_name], axis=0, join='outer')
@@ -135,37 +98,39 @@ class count_dict:
             'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
         herb_dense_dataframe = herb_dense_dataframe.astype('int')
         return herb_dense_dataframe
-    def tf_idf_dict(self,lexicon,list_vect):
+    def lexicon(self):
+        lexicon=sorted(set(self.herb_list))
+        return lexicon
+    def tf_idf_dict(self,lexicon):
         tf_idf_dict = dict()
-        for tf_pres_name in self.keys():
+        for tf_pres_name in self.file_dict.keys():
             ini_tf_vect = dict()
-            herbs = self.get(tf_pres_name)
+            herbs = self.file_dict.get(tf_pres_name)
             herbs_counts = Counter(herbs)
             for index, value in herbs_counts.items():
                 docs_contain_key = 0
-                for herb_row in list_vect:
+                for herb_row in self.list_vect:
                     if (index in herb_row) == True:
                         docs_contain_key = docs_contain_key + 1
                 tf = value / len(lexicon)
                 if docs_contain_key != 0:
-                    idf = len(self.keys()) / docs_contain_key
+                    idf = len(self.file_dict.keys()) / docs_contain_key
                 else:
                     idf = 0
                 ini_tf_vect[index] = tf * idf
             tf_idf_dict[tf_pres_name] = ini_tf_vect
         return tf_idf_dict
-
-
-class count_list:
     def count_herb(self):
-        Counter_every_herb = Counter(self)
+        Counter_every_herb = Counter(self.herb_list)
         return Counter_every_herb
     def total_herb_list(self):
-        total_herb_list = len(Counter(self))
+        total_herb_list = len(Counter(self.herb_list))
         return total_herb_list
     def total_herb_word_list(self):
-        total_herb_word_list = len(self)
+        total_herb_word_list = len(self.herb_list)
         return total_herb_word_list
+
+
 
 class tf_idf:
     def tf_idf_dataframe(self):
