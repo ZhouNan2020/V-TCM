@@ -142,10 +142,11 @@ with tab1:
             mime='xlsx')
     # 密集矩阵下载
     if herb_dense_dataframe.empty == False:
-        herb_dense_dataframe = conver(herb_dense_dataframe)
+        dense_dataframe = herb_dense_dataframe.copy()
+        dense_dataframe = conver(dense_dataframe)
         st.download_button(
             label='Download dense matrix',
-            data=herb_dense_dataframe.file,
+            data=dense_dataframe.file,
             file_name='dense matrix.xlsx')
     # tf-idf矩阵下载
     if idf_df.empty == False:
