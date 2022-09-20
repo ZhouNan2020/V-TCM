@@ -1,20 +1,9 @@
 # %%
 import numpy as np
 import pandas as pd
-from io import BytesIO
-from xlsxwriter import Workbook
-from pyxlsb import open_workbook as open_xlsb
 import matplotlib.pyplot as plt
-import matplotlib as mpl
 from matplotlib import font_manager
 import seaborn as sns
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.decomposition import PCA, TruncatedSVD
-from collections import Counter, OrderedDict
-import copy as cp
-from sklearn.decomposition import LatentDirichletAllocation as LDiA
-import gensim
-from PIL import Image
 import streamlit as st
 import altair as alt
 # %%
@@ -74,7 +63,7 @@ def file_pre(f):
     return txt
 txt=file_pre(file)
 # %%
-st.write('You can use the cursor keys "←" and "→" to see more tags')
+
 
 f=base_frame(txt)
 herb_list = f.herb_list
@@ -94,22 +83,9 @@ lexicon = f.lexicon()
 tf_idf_dict = f.tf_idf_dict(lexicon=lexicon)
 idf_df = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
-#herb_list = format.herb_list(txt)
-#file_dict = format.file_dict(txt)
 
-#total_herb_list = count_list.total_herb_list(herb_list)
-#total_herb_word_list = count_list.total_herb_word_list(herb_list)
-#avg_len = count_dict.avg_len(file_dict)
-#count_herb = count_list.count_herb(file_dict)
-#
-#Counter_every_herb = count_list.count_herb(herb_list)
-#most_common_herb2 = Counter_every_herb.most_common()
-#most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
-#full_common_data = most_common_herb2.copy()
 
 with tab1:
-
-
     st.write('1.The total number of different herbs: ', total_herb_list)
     st.write('2.The total number of herbs is:', total_herb_word_list)
     st.write('3.The average length of prescription: ', round(avg_len, 0))
@@ -206,10 +182,6 @@ with tab2:
         'Reminder: Calculating the dot product and cosine between all prescriptions can take a lot of time and cause the program to crash, depending on your dataset size')
     st.write(
         'Reminder: We recommend that you start the process with the desktop app whenever possible, however, time consuming and system crashes are still possible roadblocks')
-
-
-    
-
 
 
 with tab3:
@@ -323,10 +295,8 @@ with tab5:
 with tab6:
     model=f.w2v(avg_len=avg_len)
     pca_matrix = alt_plot.alt_plot(model=model,full_common_data=full_common_data)
-    x = pca_matrix['topic0']
-    y = pca_matrix['topic1']
     w2v_data = alt.Chart(pca_matrix).mark_circle().encode(
-        x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count']).interactive()
+        x='Vector 1', y='Vector 2', size='count', color='count', tooltip=['name', 'count']).interactive()
     st.altair_chart(w2v_data, use_container_width=True)
 
     op_w2v = st.radio('What\'s your favorite movie genre?',

@@ -2,21 +2,12 @@
 import numpy as np
 import pandas as pd
 from io import BytesIO
-from xlsxwriter import Workbook
-from pyxlsb import open_workbook as open_xlsb
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-from matplotlib import font_manager
-import seaborn as sns
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import PCA, TruncatedSVD
 from collections import Counter, OrderedDict
 import copy as cp
 from sklearn.decomposition import LatentDirichletAllocation as LDiA
 import gensim
-from PIL import Image
-import streamlit as st
-import altair as alt
+
 #%%
 # 文件格式转换
 class conver:
@@ -279,6 +270,7 @@ class alt_plot:
         pca_matrix = pca_topic.round(3)
         pca_matrix = pca_matrix.join(full_common_data)
         pca_matrix = pca_matrix.reset_index()
+        pca_matrix.rename(columns={'topic0':'Vector 1','topic1':'Vector 2'},inplace=True)
         return pca_matrix
 
 
