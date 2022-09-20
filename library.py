@@ -78,7 +78,7 @@ class base_frame:
             len_herb_list = len_herb_list + len_list
         avg_len = len_herb_list / (len(self.file_dict.keys()))
         return avg_len
-    def dense_frame(self):
+    def herb_dense_dataframe(self):
         herb_dense_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
         for pres_name in self.file_dict.keys():
             herb_list = self.file_dict.get(pres_name)

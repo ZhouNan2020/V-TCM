@@ -131,7 +131,7 @@ with tab1:
         if close:
             st.experimental_memo.clear()
 #%%
-herb_dense_data_frame = f.dense_frame()
+herb_dense_data_frame = f.herb_dense_dataframe()
 lexicon = f.lexicon()
 tf_idf_dict = f.tf_idf_dict(file_dict)
 tf_idf_dataframe = tf_idf.tf_idf_dataframe(tf_idf_dict)
