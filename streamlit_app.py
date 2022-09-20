@@ -195,7 +195,20 @@ with tab2:
         'Reminder: Calculating the dot product and cosine between all prescriptions can take a lot of time and cause the program to crash, depending on your dataset size')
     st.write(
         'Reminder: We recommend that you start the process with the desktop app whenever possible, however, time consuming and system crashes are still possible roadblocks')
-
+    if st.button('Download matrix', key=11):
+        if dense_dot_df.empty == False:
+            dense_dot = conver(dense_dot_df)
+            st.download_button(
+                label='Download dot_product_matrix',
+                data=dense_dot,
+                file_name='dense dot product.xlsx')
+        # cosine similarity矩阵下载
+        if cos_dot_df.empty == False:
+            cos_dot = conver(cos_dot_df)
+            st.download_button(
+                label='Download cosine similarity matrix',
+                data=cos_dot,
+                file_name='cosine similarity.xlsx')
 
 with tab3:
     tf_idf_sort = sort.tf_idf_sort(idf_df=idf_df)
