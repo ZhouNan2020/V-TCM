@@ -321,7 +321,7 @@ with tab5:
         st.success('The topic classification based on LDiA is done,you can download this matrix in the "Download" tab')
 
 with tab6:
-    model=base_frame.w2v(avg_len=avg_len)
+    model=f.w2v(avg_len=avg_len)
     w2v_data = alt.alt_plot(model=model,full_common_data=full_common_data)
     st.altair_chart(w2v_data, use_container_width=True)
 
