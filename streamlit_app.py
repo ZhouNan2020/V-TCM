@@ -44,9 +44,10 @@ from library import conver, read_file,tf_idf, base_frame,dot_cos_cal
 # 读取示例数据
 out1 = pd.read_excel('English example.xlsx')
 out2 = pd.read_excel('中文示例.xlsx')
-c=conver()
-eng_exmp = c(out1)
-chn_exmp = c(out2)
+eng_exmp=conver(out1)
+chn_exmp=conver(out2)
+
+
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
