@@ -195,11 +195,11 @@ with tab3:
         options=range(1, 50, 1), key=7)
     idf_button_con = st.button('Continue', key=13)
     if idf_button_con:
-        with tab3_col1:
+
             st.write('{} widely used herbs'.format(num7))
             st.table(tf_idf_sort.head(num7))
 
-        with tab3_col2:
+        
             st.write('{} rarely used herbs'.format(num7))
             st.table(tf_idf_sort.tail(num7))
 
