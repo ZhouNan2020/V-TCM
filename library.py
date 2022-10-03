@@ -124,6 +124,21 @@ class base_frame:
     def w2v(self,avg_len):
         model = gensim.models.Word2Vec(self.list_vect, sg=0, min_count=1, vector_size=100, window=avg_len)
         return model
+    def tf_idf_sort(self,idf_df):
+        sum_table=pd.DataFrame(idf_df['tf_idf_sum'])
+        tf_idf_sort_dict=dict()
+        for index, row in sum_table.iterrows():
+            for i in row:
+                herb_list = self.file_dict.get(index)
+                len_pres = len(herb_list)
+                mean_tf_idf = i / len_pres
+                tf_idf_sort_dict[index] = mean_tf_idf
+        tf_idf_mean_value=pd.DataFrame.from_dict(tf_idf_sort_dict, orient='index')
+        tf_idf_mean_value.columns=['tf_idf_mean']
+        tf_idf_herb_list=pd.DataFrame.from_dict(file_dict, orient='index')
+        tf_idf_mean_value_herb_list=pd.concat([tf_idf_mean_value, tf_idf_herb_list], axis=1)
+        tf_idf_sort = tf_idf_mean_value_herb_list.sort_values(by=['tf_idf_mean'], ascending=False)
+        return tf_idf_sort
 
 
 
@@ -198,21 +213,7 @@ class tf_idf:
         return idf_df
 
 class sort:
-    def tf_idf_sort(idf_df):
-        sum_table=pd.DataFrame(idf_df['tf_idf_sum'])
-        tf_idf_sort_dict=dict()
-        for index, row in sum_table.iterrows():
-            for i in row:
-                herb_list = file_dict.get(index)
-                len_pres = len(herb_list)
-                mean_tf_idf = i / len_pres
-                tf_idf_sort_dict[index] = mean_tf_idf
-        tf_idf_mean_value=pd.DataFrame.from_dict(tf_idf_sort_dict, orient='index')
-        tf_idf_mean_value.columns=['tf_idf_mean']
-        tf_idf_herb_list=pd.DataFrame.from_dict(file_dict, orient='index')
-        tf_idf_mean_value_herb_list=pd.concat([tf_idf_mean_value, tf_idf_herb_list], axis=1)
-        tf_idf_sort = tf_idf_mean_value_herb_list.sort_values(by=['tf_idf_mean'], ascending=False)
-        return tf_idf_sort
+
 
 
 class svd:

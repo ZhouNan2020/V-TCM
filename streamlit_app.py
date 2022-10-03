@@ -187,7 +187,7 @@ with tab2:
 
 
 with tab3:
-    tf_idf_sort = sort.tf_idf_sort(idf_df=idf_df)
+    tf_idf_sort = f.tf_idf_sort(idf_df=idf_df)
     st.success(
         "The calculation of Featured and generic herbs has been completed, please select the number of herbs you need to present")
     num7 = st.select_slider(
@@ -202,7 +202,7 @@ with tab3:
         with tab3_col2:
             st.write('{} rarely used herbs'.format(num7))
             st.table(tf_idf_sort.tail(num7))
-            
+
     if st.button('Download TF-IDF matrix',key=141):
         tf_idf_matrix = conver(idf_df)
         st.download_button(
