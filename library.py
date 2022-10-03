@@ -212,8 +212,6 @@ class tf_idf:
         idf_df['tf_idf_sum'] = idf_df.apply(lambda x: x.sum(),axis=1)
         return idf_df
 
-class sort:
-
 
 
 class svd:
