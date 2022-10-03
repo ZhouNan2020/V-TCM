@@ -194,18 +194,24 @@ class tf_idf:
         idf_df['herb_name'] = idf_df['herb_name'].fillna(method='ffill')
         idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
         idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
+        idf_df['tf_idf_sum'] = idf_df.apply(lambda x: x.sum(),axis=1)
         return idf_df
 
 class sort:
     def tf_idf_sort(idf_df):
-        tf_idf_sort = pd.DataFrame(columns=['herb', 'tf_idf_value'])
-        for index, row in idf_df.iterrows():
-            for idf_i in row:
-                idf_value = idf_i
-                herb_name = idf_df.columns[idf_df.loc[index] == idf_i].values[0]
-                tf_idf_sort = tf_idf_sort.append({'herb': herb_name, 'tf_idf_value': idf_value}, ignore_index=True)
-        tf_idf_sort = tf_idf_sort.sort_values(by=['tf_idf_value'], ascending=False)
-        tf_idf_sort = tf_idf_sort.set_index("herb")
+        sum_table=pd.DataFrame(idf_df['tf_idf_sum'])
+        tf_idf_sort_dict=dict()
+        for index, row in sum_table.iterrows():
+            for i in row:
+                herb_list = file_dict.get(index)
+                len_pres = len(herb_list)
+                mean_tf_idf = i / len_pres
+                tf_idf_sort_dict[index] = mean_tf_idf
+        tf_idf_mean_value=pd.DataFrame.from_dict(tf_idf_sort_dict, orient='index')
+        tf_idf_mean_value.columns=['tf_idf_mean']
+        tf_idf_herb_list=pd.DataFrame.from_dict(file_dict, orient='index')
+        tf_idf_mean_value_herb_list=pd.concat([tf_idf_mean_value, tf_idf_herb_list], axis=1)
+        tf_idf_sort = tf_idf_mean_value_herb_list.sort_values(by=['tf_idf_mean'], ascending=False)
         return tf_idf_sort
 
 

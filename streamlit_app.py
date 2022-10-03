@@ -193,24 +193,16 @@ with tab3:
     num7 = st.select_slider(
         'Please select the number of themes you wish to try',
         options=range(1, 50, 1), key=7)
-    tab3_col1, tab3_col2 = st.columns(2)
-
     idf_button_con = st.button('Continue', key=13)
     if idf_button_con:
         with tab3_col1:
             st.write('{} widely used herbs'.format(num7))
             st.table(tf_idf_sort.head(num7))
-            idf_x1 = list((tf_idf_sort.head(num7)).index)
-            idf_y1 = list((tf_idf_sort['tf_idf_value'].head(num7)))
-            plt.barh(idf_x1, idf_y1)
-            st.pyplot(plt)
+
         with tab3_col2:
             st.write('{} rarely used herbs'.format(num7))
             st.table(tf_idf_sort.tail(num7))
-            idf_x2 = list((tf_idf_sort.tail(num7)).index)
-            idf_y2 = list((tf_idf_sort['tf_idf_value'].tail(num7)))
-            plt.barh(idf_x2, idf_y2)
-            st.pyplot(plt)
+            
     if st.button('Download TF-IDF matrix',key=141):
         tf_idf_matrix = conver(idf_df)
         st.download_button(
