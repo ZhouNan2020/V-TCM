@@ -199,12 +199,12 @@ with tab3:
             st.write('{} widely used herbs'.format(num7))
             st.table(tf_idf_sort.head(num7))
 
-        
+
             st.write('{} rarely used herbs'.format(num7))
             st.table(tf_idf_sort.tail(num7))
 
-    if st.button('Download TF-IDF matrix',key=141):
-        tf_idf_matrix = conver(idf_df)
+    if tf_idf_sort.empty == False:
+        tf_idf_matrix = conver(tf_idf_sort)
         st.download_button(
             label='Download tf_idf_matrix',
             data=tf_idf_matrix.file,
