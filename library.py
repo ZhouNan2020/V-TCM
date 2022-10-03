@@ -135,7 +135,7 @@ class base_frame:
                 tf_idf_sort_dict[index] = mean_tf_idf
         tf_idf_mean_value=pd.DataFrame.from_dict(tf_idf_sort_dict, orient='index')
         tf_idf_mean_value.columns=['tf_idf_mean']
-        tf_idf_herb_list=pd.DataFrame.from_dict(file_dict, orient='index')
+        tf_idf_herb_list=pd.DataFrame.from_dict(self.file_dict, orient='index')
         tf_idf_mean_value_herb_list=pd.concat([tf_idf_mean_value, tf_idf_herb_list], axis=1)
         tf_idf_sort = tf_idf_mean_value_herb_list.sort_values(by=['tf_idf_mean'], ascending=False)
         return tf_idf_sort
