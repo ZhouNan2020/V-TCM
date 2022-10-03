@@ -163,6 +163,7 @@ class dot_cos_cal:
             for res2 in herb_dense_dataframe.index:
                 vec1 = herb_dense_dataframe.loc[res1]
                 vec2 = herb_dense_dataframe.loc[res2]
+                dot = np.dot(vec1, vec2)
                 cos = dot / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
                 cos_matrix = cos_matrix.join(pd.DataFrame(cos,columns=[res2],index=[res1]), how='right')
             cos_df = pd.concat([cos_df, cos_matrix], axis=0, join="outer")

@@ -6,6 +6,8 @@ from matplotlib import font_manager
 import seaborn as sns
 import streamlit as st
 import altair as alt
+import sys
+sys.path.append('.')
 # %%
 # Path: V-TCM\streamlit_app.py
 # 全局设置
@@ -53,7 +55,7 @@ with st.sidebar:
 # 测试文件
 # file=pd.read_csv("English example.csv")
 #%%
-def file_pre(f):
+def file_pre(file):
     if file!=None:
         txt = read_file.read(file)
     else:
@@ -209,7 +211,7 @@ with tab3:
             idf_y2 = list((tf_idf_sort['tf_idf_value'].tail(num7)))
             plt.barh(idf_x2, idf_y2)
             st.pyplot(plt)
-    if st.button('Download TF-IDF matrix',key=14):
+    if st.button('Download TF-IDF matrix',key=141):
         tf_idf_matrix = conver(idf_df)
         st.download_button(
             label='Download tf_idf_matrix',
