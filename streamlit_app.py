@@ -13,7 +13,7 @@ sys.path.append('.')
 # 全局设置
 # streamlit
 tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs(
-    ["Descriptive statistics", "Prescription similarity", "Herbal generality",
+    ["Descriptive statistics", "Prescription similarity", "General analysis",
      "LSA topic distribution", "LDiA topic distribution","Word embedding",
      "About the program"])
 
@@ -189,18 +189,18 @@ with tab2:
 with tab3:
     tf_idf_sort = f.tf_idf_sort(idf_df=idf_df)
     st.success(
-        "The calculation of Featured and generic herbs has been completed, please select the number of herbs you need to present")
+        "TF-IDF value calculation has been completed in the background.")
     num7 = st.select_slider(
-        'Please select the number of themes you wish to try',
+        'please select the number of prescriptions you want to display.',
         options=range(1, 50, 1), key=7)
     idf_button_con = st.button('Continue', key=13)
     if idf_button_con:
 
-            st.write('{} widely used herbs'.format(num7))
+            st.write('{} prescriptions that use more common herbs'.format(num7))
             st.table(tf_idf_sort.head(num7))
 
 
-            st.write('{} rarely used herbs'.format(num7))
+            st.write('{} prescriptions that use more rare herbs'.format(num7))
             st.table(tf_idf_sort.tail(num7))
 
     if tf_idf_sort.empty == False:
