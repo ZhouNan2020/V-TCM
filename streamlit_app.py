@@ -14,7 +14,7 @@ sys.path.append('.')
 # streamlit
 tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "General analysis",
-     "LSA topic distribution", "LDiA topic distribution","Word embedding",
+     "LSA topic distribution", "LDiA topic distribution","Word2Vec model",
      "About the program"])
 
 # matplotlib
