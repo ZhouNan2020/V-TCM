@@ -42,6 +42,7 @@ chn_exmp=conver(out2)
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
+    st.title('Vector-TCM')
     file = st.file_uploader("Click “Browse files” to upload files", type=["xlsx"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .xlsx file')
