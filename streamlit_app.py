@@ -349,7 +349,7 @@ with tab7:
     st.write('Mail_1:zhounan@1utar.my')
     st.write('Mail_2:zhounan2020@foxmail.com')
     st.write(
-        'Due to Streamlit\'s IO capability limitations, this program does not perform well when dealing with larger data sets. If you think this program cannot meet your needs or is always stuck in use, you can contact the author directly, you will get help.')
+        'Due to Streamlit\'s IO capability limitations, this web application may not perform well on large data sets. If you think this web application cannot meet your needs, you can visit GitHub Public repository(https://github.com/ZhouNan2020/VectorTCM.git) to obtain PC platform applications, or directly contact the author by email for help.')
 
 
 
