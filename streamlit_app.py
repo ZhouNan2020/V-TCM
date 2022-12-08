@@ -12,6 +12,7 @@ sys.path.append('.')
 # Path: V-TCM\streamlit_app.py
 # 全局设置
 # streamlit
+st.title('Vector-TCM V1.0.0')
 tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "General analysis",
      "LSA topic distribution", "LDiA topic distribution","Word2Vec model",
@@ -37,7 +38,7 @@ out1 = pd.read_excel('English example.xlsx')
 out2 = pd.read_excel('中文示例.xlsx')
 eng_exmp=conver(out1)
 chn_exmp=conver(out2)
-st.title('Vector-TCM')
+
 
 # %%
 # 侧栏上传文件区域
