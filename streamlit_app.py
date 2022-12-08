@@ -37,7 +37,7 @@ out1 = pd.read_excel('English example.xlsx')
 out2 = pd.read_excel('中文示例.xlsx')
 eng_exmp=conver(out1)
 chn_exmp=conver(out2)
-
+st.title('Vector-TCM')
 
 # %%
 # 侧栏上传文件区域
@@ -86,7 +86,7 @@ lexicon = f.lexicon()
 tf_idf_dict = f.tf_idf_dict(lexicon=lexicon)
 idf_df = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
-st.title('Vector-TCM')
+
 
 with tab1:
     st.write('1.The total number of different herbs: ', total_herb_list)
@@ -135,10 +135,10 @@ with tab1:
             label='Download tf_idf_matrix',
             data=tf_idf_matrix.file,
             file_name='tf_idf_matrix.xlsx')
-        close=st.button('Terminate descriptive statistics', key=3)
-        st.write('To ensure that the WebApp retains enough memory, try to terminate unneeded modules when appropriate')
-        if close:
-            st.experimental_memo.clear()
+        #close=st.button('Terminate descriptive statistics', key=3)
+        #st.write('To ensure that the WebApp retains enough memory, try to terminate unneeded modules when appropriate')
+        #if close:
+        #    st.experimental_memo.clear()
 #%%
 
 with tab2:
