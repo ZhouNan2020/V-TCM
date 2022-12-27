@@ -32,3 +32,5 @@ The role of this module is no different from conventional descriptive statistics
 ![img_2.png](img_2.png)
 </kbd>
 The Prescription similarity module is used to analyze the similarity between prescriptions in the data set. The algorithm of the module is based on the dot product value and cosine value. Due to the limitation of computing power, in the WebAPP version of the Vector-TCM, it is not possible to directly calculate the similarity of prescriptions in the entire data set. You need to select a part of the prescription calculation.
+
+2.3
