@@ -33,4 +33,8 @@ The role of this module is no different from conventional descriptive statistics
 </kbd>
 The Prescription similarity module is used to analyze the similarity between prescriptions in the data set. The algorithm of the module is based on the dot product value and cosine value. Due to the limitation of computing power, in the WebAPP version of the Vector-TCM, it is not possible to directly calculate the similarity of prescriptions in the entire data set. You need to select a part of the prescription calculation.
 
-2.3
+2.3 Universality analysis
+<kbd>
+![img_3.png](img_3.png)
+</kbd>
+In NLP, words with high TF-IDF values are often considered to be of analytical value. In TCM data mining, TF-IDF value will be more fully utilized. Herbs with low TF-IDF values mean that they are widely used in datasets. We can combine descriptive statistics to more strongly prove that they are necessary herbs for the treatment of certain diseases, or that some doctor is accustomed to using herbs; herbs with high TF-IDF values are herbs that only appear once in all prescriptions in the data set. In addition to certain rare herbs, they can also reverse verify the quality of data cleaning, so that we can find those herbal names that have not been unified, or other abnormal terms. Since each herb appears only once in each prescription, the same herb has the same TF-IDF value anywhere in the data set. We can average the TF-IDF values of all herbs in each prescription. The high mean reflects that more rare herbs are used in this prescription. The special treatment concept of these prescriptions deserves more in-depth study. The low mean reflects that it uses common herbs, and these prescriptions represent the general treatment concept of this disease or this doctor. 
