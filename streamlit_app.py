@@ -295,7 +295,7 @@ with tab6:
         x='Vector 1', y='Vector 2', size='count', color='count', tooltip=['name', 'count']).interactive()
     st.altair_chart(w2v_data, use_container_width=True)
 
-    op_w2v = st.radio('What\'s your favorite movie genre?',
+    op_w2v = st.radio('What function do you hope to achieve?',
                       ('Similar herbal search', 'Herbal analogy', 'Compatibility assessment'))
     if op_w2v == 'Similar herbal search':
         st.subheader('Similar herbal search')
