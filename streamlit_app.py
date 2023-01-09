@@ -36,9 +36,14 @@ from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,svd,ldia,al
 # 读取示例数据
 out1 = pd.read_excel('English example.xlsx')
 out2 = pd.read_excel('中文示例.xlsx')
-eng_exmp=conver(out1)
-
-chn_exmp=conver(out2)
+eng_exmp = conver(out1)
+eng_exmp = eng_exmp.file
+eng_exmp = pd.DataFrame(eng_exmp)
+eng_exmp.reset_index("Prescription name")
+chn_exmp = conver(out2)
+chn_exmp = chn_exmp.file
+chn_exmp = pd.DataFrame(chn_exmp)
+chn_exmp.reset_index("方剂名称")
 
 
 
@@ -49,9 +54,9 @@ with st.sidebar:
     file = st.file_uploader("Click “Browse files” to upload files", type=["xlsx"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .xlsx file')
-    st.download_button('Download sample data in English', data=eng_exmp.file, file_name='sample data in English.xlsx',
+    st.download_button('Download sample data in English', data=eng_exmp, file_name='sample data in English.xlsx',
                        )
-    st.download_button('下载中文示例数据', data=chn_exmp.file, file_name='中文示例数据.xlsx')
+    st.download_button('下载中文示例数据', data=chn_exmp, file_name='中文示例数据.xlsx')
     st.write('Note: You can understand the workflow of this program by uploading sample data.')
     st.write(
         'Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
