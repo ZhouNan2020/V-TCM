@@ -49,7 +49,7 @@ with st.sidebar:
     file = st.file_uploader("Click “Browse files” to upload files", type=["xlsx"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .xlsx file')
-    st.download_button('Download sample data in English', data=eng_exmp.file, file_name='sample data in English.xlsx',
+    st.download_button('Download sample data in English', data=out1, file_name='sample data in English.xlsx',
                        )
     st.download_button('下载中文示例数据', data=chn_exmp.file, file_name='中文示例数据.xlsx')
     st.write('Note: You can understand the workflow of this program by uploading sample data.')
