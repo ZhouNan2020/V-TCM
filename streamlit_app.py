@@ -37,7 +37,7 @@ from library import conver, read_file,tf_idf, base_frame,dot_cos_cal,svd,ldia,al
 out1 = pd.read_excel('English example.xlsx')
 out2 = pd.read_excel('中文示例.xlsx')
 eng_exmp=conver(out1)
-eng_exmp.reset_index('Prescription name')
+
 chn_exmp=conver(out2)
 
 
