@@ -93,8 +93,8 @@ idf_df = tf_idf.tf_idf_dataframe(tf_idf_dict)
 
 
 with tab1:
-    st.write('1.The total number of different herbs: ', total_herb_list)
-    st.write('2.The total number of herbs is:', total_herb_word_list)
+    st.write('1.It involves a total of {} types of herbs'.format(total_herb_list))
+    st.write('2.The total frequency of herbal use has reached {}'.format(total_herb_word_list))
     st.write('3.The average length of prescription: ', round(avg_len, 0))
     st.write('4.The most common herb')
     num1 = st.select_slider(
